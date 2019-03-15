@@ -1,1 +1,9 @@
 # fichier de conf des cartes réseaux
+Carte1:
+  adresse: '192.168.0.1'
+  reseau: '192.168.0.0'
+  broadcast: '192.168.0.255'
+  netmask: '255.255.255.0'
+  passerelle: '192.168.0.254'
+  mode: 'static'
+  name: 'ETH0'
