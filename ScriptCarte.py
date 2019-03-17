@@ -22,11 +22,14 @@ def creationInterface():
         if os.path.exists("/etc/netplan/"):
             print("developpement de la partie netplan en cour")
 
-        elif os.path.exists("/etc/sysconfig/network/networs-scripts/"):
+        elif os.path.exists("/etc/sysconfig/network-scripts/"):
             print("developpement de la partie red hat en cour")
     
-        elif os.path.exists("/etc/network/interfaces"):
+        elif os.path.exists("/etc/network/"):
             print("developpement de la partie debian en cours")
+
+        elif os.path.exists("/etc/sysconfig/network/"):
+            print("developpement de la partie opensuse en cours")
 
         else:
             print("Systeme non prise en charge")
