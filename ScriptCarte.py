@@ -14,18 +14,26 @@ carte={}
 print(config)
 
 #boucle permettant de liste et traiter les cartes une a une
-for card in config:
-    carte = config[card]
-    print(carte)
+def creationInterface():
+    for card in config:
+        carte = config[card]
+        print(carte)
 
-    if os.path.exists("/etc/netplan/"):
-        print("developpement de la partie netplan en cour")
+        if os.path.exists("/etc/netplan/"):
+            print("developpement de la partie netplan en cour")
 
-    elif os.path.exists("/etc/sysconfig/network/networs-scripts/"):
-        print("developpement de la partie red hat en cour")
+        elif os.path.exists("/etc/sysconfig/network/networs-scripts/"):
+            print("developpement de la partie red hat en cour")
     
-    elif os.path.exists("/etc/network/interfaces"):
-        print("developpement de la partie debian en cours")
+        elif os.path.exists("/etc/network/interfaces"):
+            print("developpement de la partie debian en cours")
 
-    else:
-        print("Systeme non prise en charge")
+        else:
+            print("Systeme non prise en charge")
+
+def main():
+    # fonction main gérant le déroulé du script
+    argument = sys.argv[1]
+
+# appel du main pour au lancement du script
+main()
