@@ -17,3 +17,15 @@ print(config)
 for card in config:
     carte = config[card]
     print(carte)
+
+    if os.path.exists("/etc/netplan/"):
+        print("developpement de la partie netplan en cour")
+
+    elif os.path.exists("/etc/sysconfig/network/networs-scripts/"):
+        print("developpement de la partie red hat en cour")
+    
+    elif os.path.exists("/etc/network/interfaces"):
+        print("developpement de la partie debian en cours")
+
+    else:
+        print("Systeme non prise en charge")
