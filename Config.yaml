@@ -7,4 +7,5 @@ Carte1:
   passerelle: '192.168.0.254'
   mode: 'static'
   name: 'ETH0'
+  type: 'Ethernet'
   num: 1 # numéro de la carte important pour les distributions basé sur red hat

@@ -5,6 +5,12 @@ import os
 import sys
 import yaml
 
+#importation des autres scripts
+import RedHatScript as R
+import DebianScript as D
+import NetplanScript as N
+import OpenSuseScript as O
+
 #suppression des fichiers de conf de base
 #os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
 
