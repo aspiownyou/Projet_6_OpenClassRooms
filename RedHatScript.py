@@ -7,25 +7,12 @@ def carteE(carte):
 
         if carte['num'] == 1:
                 fichier = open(chemin, "w")
-                fichier.write("TYPE=" + carte["type"])
-                fichier.close()
-                fichier = open(chemin, "a")
-                fichier.write("BOOTPROTO=" + carte["mode"])
-                fichier.write("ONBOOT=yes")
-                fichier.write("IPADDR=" + carte["adresse"])
-                fichier.write("NETMASK" + carte["netmask"])
+                fichier.write("TYPE=" + carte["type"] + '/n' + "BOOTPROTO=" + carte["mode"] + '/n' + "ONBOOT=yes" + '/n' + "IPADDR=" + carte["adresse"] + '/n' + "NETMASK" + carte["netmask"])
                 print("le fichier "+chemin+' à été créé')
-                fichier.close()
         if carte['num'] > 1:
                 chemin += 5
                 fichier = open(chemin, "w")
-                fichier.write("TYPE=" + carte["type"])
-                fichier.close()
-                fichier = open(chemin, "a")
-                fichier.write("BOOTPROTO=" + carte["mode"])
-                fichier.write("ONBOOT=yes")
-                fichier.write("IPADDR=" + carte["adresse"])
-                fichier.write("NETMASK" + carte["netmask"])
+                fichier.write("TYPE=" + carte["type"] + "/nBOOTPROTO=" + carte["mode"] + "/nONBOOT=yes /nIPADDR=" + carte["adresse"] + "/NETMASK" + carte["netmask"])
                 print("le fichier "+chemin+' à été créé')
         else:
                 print("Impossible de créer un fichier de configuration, le fichier YAML doit etre mal renseigné.")
