@@ -2,15 +2,15 @@
 
 def carteE(carte):
 
-        x = "3"
-        chemin = "/etc/sysconfig/network-scripts/ifcfg-enp0s" + x
-
         if carte['num'] == 1:
+                x = "3"
+                chemin = "/etc/sysconfig/network-scripts/ifcfg-enp0s" + x
                 fichier = open(chemin, "w")
                 fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK" + carte["netmask"])
                 print("le fichier "+chemin+' à été créé')
         if carte['num'] > 1:
-                chemin += 5
+                x = carte['num'] + 6
+                chemin = "/etc/sysconfig/network-scripts/ifcfg-enp0s" + x
                 fichier = open(chemin, "w")
                 fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK" + carte["netmask"])
                 print("le fichier "+chemin+' à été créé')

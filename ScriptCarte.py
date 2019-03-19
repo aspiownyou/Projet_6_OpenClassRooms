@@ -17,13 +17,10 @@ import OpenSuseScript as O
 config = yaml.load(open("Config.yaml"))
 carte={}
 
-print(config)
-
 #boucle permettant de liste et traiter les cartes une a une
 def creationInterface():
     for card in config:
         carte = config[card]
-        print(carte)
 
         if os.path.exists("/etc/netplan/"):
             print("developpement de la partie netplan en cour")
