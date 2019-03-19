@@ -29,7 +29,7 @@ def creationInterface():
             print("developpement de la partie netplan en cour")
 
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
-            print("developpement de la partie red hat en cour")
+            R.carteE(carte)
     
         elif os.path.exists("/etc/network/"):
             print("developpement de la partie debian en cours")
@@ -43,6 +43,9 @@ def creationInterface():
 def main():
     # fonction main gérant le déroulé du script
     argument = sys.argv[1]
+
+    if argument == 'E':
+        creationInterface()
 
 # appel du main pour au lancement du script
 main()
