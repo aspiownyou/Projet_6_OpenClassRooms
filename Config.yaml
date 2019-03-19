@@ -11,23 +11,23 @@ Carte1:
   num: 1 # numéro de la carte important pour les distributions basé sur red hat
 
 Carte2:
-  adresse: '192.168.0.1'
+  adresse: '192.168.0.2'
   reseau: '192.168.0.0'
   broadcast: '192.168.0.255'
   netmask: '255.255.255.0'
   passerelle: '192.168.0.254'
   mode: 'static'
-  name: 'ETH0'
+  name: 'ETH1'
   type: 'Ethernet'
   num: 2 # numéro de la carte important pour les distributions basé sur red hat
 
 Carte3:
-  adresse: '192.168.0.1'
+  adresse: '192.168.0.3'
   reseau: '192.168.0.0'
   broadcast: '192.168.0.255'
   netmask: '255.255.255.0'
   passerelle: '192.168.0.254'
   mode: 'static'
-  name: 'ETH0'
+  name: 'ETH2'
   type: 'Ethernet'
   num: 3 # numéro de la carte important pour les distributions basé sur red hat
