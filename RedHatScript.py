@@ -6,13 +6,13 @@ def carteE(carte):
                 x = "3"
                 chemin = "/etc/sysconfig/network-scripts/ifcfg-enp0s" + x
                 fichier = open(chemin, "w")
-                fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK=" + carte["netmask"])
+                fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK=" + carte["netmask"] + "\nBROADCAST=" + carte["broadcast"])
                 print("le fichier "+chemin+' à été créé')
         if carte['num'] > 1:
                 x = carte['num'] + 6
                 chemin = "/etc/sysconfig/network-scripts/ifcfg-enp0s" + str(x)
                 fichier = open(chemin, "w")
-                fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK=" + carte["netmask"])
+                fichier.write("TYPE=" + carte["type"] + "\nBOOTPROTO=" + carte["mode"] + "\nONBOOT=yes \nIPADDR=" + carte["adresse"] + "\nNETMASK=" + carte["netmask"] + "\nBROADCAST=" + carte["broadcast"])
                 print("le fichier "+chemin+' à été créé')
         else:
                 print("probleme YAML")
