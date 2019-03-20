@@ -6,7 +6,7 @@ Carte1:
   netmask: '255.255.255.0'
   gateway: '192.168.0.254'
   mode: 'static'
-  name: 'ETH0'
+  name: 'enp0s3'
   type: 'Ethernet'
   num: 1 # numéro de la carte important pour les distributions basé sur red hat
 
