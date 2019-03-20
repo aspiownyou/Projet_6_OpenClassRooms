@@ -1,7 +1,7 @@
 # Script pour debian
 
 def carteE(carte, fichier):
-    fichier.write("# " + str(carte["num"]) + "interface \niface " + carte["name"] + " inet static\n" + "    address " + carte["adresse"] + "\n    netmask " + carte["netmask"] + "\n    gateway " + carte["gateway"])
+    fichier.write("\n \n# " + str(carte["num"]) + "interface \nauto " + carte["name"] + "\nallow-hotplug " + carte["name"] + "\niface " + carte["name"] + " inet static\n" + "    address " + carte["adresse"] + "\n    netmask " + carte["netmask"] + "\n    gateway " + carte["gateway"])
     print(fichier)
 
 def dhcp():
