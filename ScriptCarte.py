@@ -33,13 +33,13 @@ def creationInterface():
     for card in config:
         carte = config[card]
 
-        if os.path.exists("/etc/netplan/") && y == 1:
+        if os.path.exists("/etc/netplan/") and y == 1:
             N.carteE(carte, fichier)
 
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
             R.carteE(carte)
     
-        elif os.path.exists("/etc/network/") && y == 0:
+        elif os.path.exists("/etc/network/") and y == 0:
             D.carteE(carte, fichier)
             print("developpement de la partie debian en cours")
 
