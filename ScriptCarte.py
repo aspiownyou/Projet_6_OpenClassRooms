@@ -21,30 +21,28 @@ carte={}
 def creationInterface():
     
     if os.path.exists("/etc/netplan/"):
-        y = 1
         fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
         fichier.write("network:\n")
         fichier.write("    version2:\n")
         fichier.write("    ethernets:\n")
     if os.path.exists("/etc/network/"):
-        y = 0
         fichier = open("/etc/network/interfaces", "w")
         fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
     for card in config:
         carte = config[card]
 
-        if os.path.exists("/etc/netplan/") and y == 1:
+        if os.path.exists("/etc/netplan/"):
             N.carteE(carte, fichier)
 
-        elif os.path.exists("/etc/sysconfig/network-scripts/"):
+        elif os.path.exists("/etc/sysconfig/network-scripts/") and os.path.exists("/etc/netplan/") == False:
             R.carteE(carte)
     
-        elif os.path.exists("/etc/network/") and y == 0:
+        elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
             D.carteE(carte, fichier)
             print("developpement de la partie debian en cours")
 
-        elif os.path.exists("/etc/sysconfig/network/"):
+        elif os.path.exists("/etc/sysconfig/network/") and os.path.exists("/etc/netplan/") == False:
             print("developpement de la partie opensuse en cours")
 
         else:
