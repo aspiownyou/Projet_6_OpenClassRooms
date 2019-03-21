@@ -25,7 +25,7 @@ def creationInterface():
         fichier.write("network:\n")
         fichier.write("    version2:\n")
         fichier.write("    ethernets:\n")
-    if os.path.exists("/etc/network/"):
+    if os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
         fichier = open("/etc/network/interfaces", "w")
         fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
@@ -33,6 +33,7 @@ def creationInterface():
         carte = config[card]
 
         if os.path.exists("/etc/netplan/"):
+            print(fichier.read())
             N.carteE(carte, fichier)
 
         elif os.path.exists("/etc/sysconfig/network-scripts/") and os.path.exists("/etc/netplan/") == False:
