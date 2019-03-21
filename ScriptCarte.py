@@ -20,7 +20,7 @@ carte={}
 #boucle permettant de liste et traiter les cartes une a une
 def creationInterface():
     if os.path.exists("/etc/netplan/"):
-        fichier = open("/etc/netplan/*.yaml", "w")
+        fichier = open("/etc/netplan/50-cloup-init.yaml", "w")
         fichier.write("network: \n    version2:\n    ethernets:\n")
     if os.path.exists("/etc/network/"):
         fichier = open("/etc/network/interfaces", "w")
