@@ -33,7 +33,6 @@ def creationInterface():
         carte = config[card]
 
         if os.path.exists("/etc/netplan/"):
-            print(fichier.read())
             N.carteE(carte, fichier)
 
         elif os.path.exists("/etc/sysconfig/network-scripts/") and os.path.exists("/etc/netplan/") == False:
@@ -41,10 +40,9 @@ def creationInterface():
     
         elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
             D.carteE(carte, fichier)
-            print("developpement de la partie debian en cours")
 
         elif os.path.exists("/etc/sysconfig/network/") and os.path.exists("/etc/netplan/") == False:
-            print("developpement de la partie opensuse en cours")
+            O.carteE(carte)
 
         else:
             print("Systeme non prise en charge")
@@ -55,7 +53,7 @@ def main():
 
     if argument == 'E':
         creationInterface()
-    else:
+    elif len(argument) < 2:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E   creation d'interface(s) réseau")
         print("\n        D   configuraiton d'un serveur dhcp")
