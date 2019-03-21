@@ -25,7 +25,7 @@ def creationInterface():
         fichier.write("network:\n")
         fichier.write("    version2:\n")
         fichier.write("    ethernets:\n")
-    if os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
+    elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
         fichier = open("/etc/network/interfaces", "w")
         fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
@@ -55,6 +55,12 @@ def main():
 
     if argument == 'E':
         creationInterface()
+    else:
+        print("Il faut un argument pour appeller le script :\n")
+        print("\n        E   creation d'interface(s) réseau")
+        print("\n        D   configuraiton d'un serveur dhcp")
+        print("\n        V   configuration des vlan")
+        print("\n        R   activation du routage")
 
 # appel du main pour au lancement du script
 main()
