@@ -23,7 +23,7 @@ def creationInterface():
     if os.path.exists("/etc/netplan/"):
         fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
         fichier.write("network:\n")
-        fichier.write("  version2:\n")
+        fichier.write("  version: 2\n")
         fichier.write("  ethernets:\n")
     elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
         fichier = open("/etc/network/interfaces", "w")
