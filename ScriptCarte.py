@@ -19,7 +19,7 @@ carte={}
 
 #boucle permettant de liste et traiter les cartes une a une
 def creationInterface():
-    y = 0
+    
     if os.path.exists("/etc/netplan/"):
         y = 1
         fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
@@ -27,6 +27,7 @@ def creationInterface():
         fichier.write("    version2:\n")
         fichier.write("    ethernets:\n")
     if os.path.exists("/etc/network/"):
+        y = 0
         fichier = open("/etc/network/interfaces", "w")
         fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
