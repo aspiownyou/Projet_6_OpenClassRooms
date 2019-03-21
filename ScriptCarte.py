@@ -19,7 +19,9 @@ carte={}
 
 #boucle permettant de liste et traiter les cartes une a une
 def creationInterface():
+    y = 0
     if os.path.exists("/etc/netplan/"):
+        y = 1
         fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
         fichier.write("network:\n")
         fichier.write("    version2:\n")
@@ -31,13 +33,13 @@ def creationInterface():
     for card in config:
         carte = config[card]
 
-        if os.path.exists("/etc/netplan/"):
+        if os.path.exists("/etc/netplan/") && y == 1:
             N.carteE(carte, fichier)
 
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
             R.carteE(carte)
     
-        elif os.path.exists("/etc/network/"):
+        elif os.path.exists("/etc/network/") && y == 0:
             D.carteE(carte, fichier)
             print("developpement de la partie debian en cours")
 
