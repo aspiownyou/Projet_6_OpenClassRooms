@@ -21,7 +21,9 @@ carte={}
 def creationInterface():
     if os.path.exists("/etc/netplan/"):
         fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
-        fichier.write("network: \n    version2:\n    ethernets:\n")
+        fichier.write("network:\n")
+        fichier.write("    version2:\n")
+        fichier.write("    ethernets:\n")
     if os.path.exists("/etc/network/"):
         fichier = open("/etc/network/interfaces", "w")
         fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
@@ -30,7 +32,7 @@ def creationInterface():
         carte = config[card]
 
         if os.path.exists("/etc/netplan/"):
-            print("developpement de la partie netplan en cour")
+            N.carteE(carte, fichier)
 
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
             R.carteE(carte)

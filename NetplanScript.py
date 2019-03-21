@@ -1,13 +1,9 @@
 # Script pour les distributions utilisants netplan
 
 def carteE(carte, fichier):
-    fichier.write("network:")
-    fichier.write("    version2:")
-    fichier.write("    ethernets:")
-    fichier.write("        " + carte["name"] + ":")
-    fichier.write("            addresses: " + carte["adresse"] + "/" + carte["cidr"])
-    fichier.write("            gateway4: " + carte["gateway"])
-    print()
+    fichier.write("        " + carte["name"] + ":\n")
+    fichier.write("            addresses: " + carte["adresse"] + "/" + carte["cidr"] + "\n")
+    fichier.write("            gateway4: " + carte["gateway"] + "\n")
 
 def dhcp():
     print("en cour")
