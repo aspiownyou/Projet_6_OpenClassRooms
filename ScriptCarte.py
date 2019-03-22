@@ -14,7 +14,7 @@ import OpenSuseScript as O
 #suppression des fichiers de conf de base
 #os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
 
-config = yaml.load(open("Config.yaml"))
+config = yaml.safe_load(open("Config.yaml"))
 carte={}
 
 #boucle permettant de liste et traiter les cartes une a une
@@ -49,12 +49,12 @@ def creationInterface():
 
 def creationDHCP():
 
-    if os.system("yum"):
-        print("Fedora")
-    elif os.system("apt"):
-        print("Debian")
-    elif os.system("zypper"):
-        print("OpenSuse")
+    if os.path.exists("/etc/yum/"):
+        os.system("yum install -y dhcp-server*")
+    elif os.path.exists("/etc/apt/"):
+        os.system("apt install -y isc-dhcp-server*")
+    elif os.path.exists("/etc/zypp/"):
+        os.system("zypper install -y dhcp-server*")
 
 def main():
     # fonction main gérant le déroulé du script
@@ -63,7 +63,7 @@ def main():
     if argument == 'E':
         creationInterface()
     if argument == 'D':
-        creationDHCP
+        creationDHCP()
     elif len(argument) < 2:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E   creation d'interface(s) réseau")
