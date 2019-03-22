@@ -1,0 +1,15 @@
+# fichier des configurations DHCP
+
+# premier pool
+Pool1:
+  lease: '600'          # en secondes
+  lease_max: '7200'     # en secondes
+  subnet: '192.168.0.0'
+  netmask: '255.255.255.0'
+  range_start0: '192.168.0.50'
+  range_end0: '192.168.0.150'
+  broadcast: '192.168.0.255'
+  router: '192.168.0.1'
+  dns: ''
+  domain: ''
+  ntp: ''

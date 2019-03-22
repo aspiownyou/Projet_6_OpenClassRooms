@@ -47,12 +47,23 @@ def creationInterface():
         else:
             print("Systeme non prise en charge")
 
+def creationDHCP():
+
+    if os.system("yum"):
+        print("Fedora")
+    elif os.system("apt"):
+        print("Debian")
+    elif os.system("zypper"):
+        print("OpenSuse")
+
 def main():
     # fonction main gérant le déroulé du script
     argument = sys.argv[1]
 
     if argument == 'E':
         creationInterface()
+    if argument == 'D':
+        creationDHCP
     elif len(argument) < 2:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E   creation d'interface(s) réseau")
