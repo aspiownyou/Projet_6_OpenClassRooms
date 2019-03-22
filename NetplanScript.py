@@ -6,8 +6,6 @@ def carteE(carte, fichier):
     if carte["gateway"] != '' :
         fichier.write("      gateway4: " + carte["gateway"] + "\n")
 
-def dhcp():
-    print("en cour")
 
 def vlan():
     print("en cour")

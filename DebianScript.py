@@ -9,10 +9,6 @@ def carteE(carte, fichier):
     fichier.write("netmask " + carte["netmask"] + "\n")
     fichier.write("gateway " + carte["gateway"] + "\n")
     fichier.write("broadcast " + carte["broadcast"] + "\n")
-    print(fichier)
-
-def dhcp():
-    print("en cour")
 
 def vlan():
     print("en cour")
