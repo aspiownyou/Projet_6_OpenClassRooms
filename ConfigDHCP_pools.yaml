@@ -1,10 +1,4 @@
-# fichier des configurations DHCP
-
-# variable globale
-Globale:
-  lease: '600'          # durée par defaut des baux en secondes
-  lease_max: '7200'     # durée max des baux en secondes
-
+# fichier des configurations des pools DHCP
 
 # premier pool
 Pool1:

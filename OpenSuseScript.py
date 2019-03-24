@@ -11,6 +11,8 @@ def carteE(carte):
     fichier.write("IPADDR=" + carte["adresse"] + "\n")
     fichier.write("NETMASK=" + carte["netmask"] + "\n")
     fichier.write("BROADCAST=" + carte["broadcast"])
+    if carte["gateway"] != '':
+        fichier.write("GATEWAY=" + carte["gateway"])
     print("le fichier "+chemin+' à été créé')
     fichier.close()
 

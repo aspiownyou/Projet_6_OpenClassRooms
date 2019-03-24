@@ -8,7 +8,13 @@ def carteE(carte, fichier):
 
 
 def vlan(vlan, fichier):
-    print("en cour")
+    fichier.write("  vlans:\n")
+    fichier.write("    vlan" + str(vlan["num"]) + ":\n")
+    fichier.write("      id: " + str(vlan["num"]) + "\n")
+    fichier.write("      link: " + vlan["interface"] + "\n")
+    fichier.write("      adresses: " + vlan["adresse"] + "\n")
+    if vlan["gateway"] != '':
+        fichier.write("      gateway4: " + vlan["gateway"] + "\n")
 
 def routage():
     print("en cour")

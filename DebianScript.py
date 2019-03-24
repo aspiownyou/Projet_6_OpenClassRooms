@@ -7,7 +7,8 @@ def carteE(carte, fichier):
     fichier.write("iface " + carte["name"] + " inet static\n")
     fichier.write("  address " + carte["adresse"] + "\n")
     fichier.write("  netmask " + carte["netmask"] + "\n")
-    fichier.write("  gateway " + carte["gateway"] + "\n")
+    if carte["gateway"] != '':
+        fichier.write("  gateway " + carte["gateway"] + "\n")
     fichier.write("  broadcast " + carte["broadcast"] + "\n")
 
 def vlan(vlan, fichier):

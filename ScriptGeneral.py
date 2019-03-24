@@ -16,13 +16,14 @@ import ScriptDHCP as sdhcp
 #os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
 
 configE = yaml.safe_load(open("Config.yaml"))
-configD = yaml.safe_load(open("ConfigDHCP.yaml"))
+configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
+lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 carte={}
 dhcp={}
 vlan={}
-max_lease = configD["Globale"]["lease_max"]
-default_lease = configD["Globale"]["lease"]
+max_lease = lease["lease_max"]
+default_lease = lease["lease"]
 
 def creationInterface():
     
