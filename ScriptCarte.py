@@ -11,6 +11,7 @@ import DebianScript as D
 import NetplanScript as N
 import OpenSuseScript as O
 import ScriptDHCP as sdhcp
+import ScriptVLAN as svlan
 
 #suppression des fichiers de conf de base
 #os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
@@ -19,6 +20,8 @@ configE = yaml.safe_load(open("Config.yaml"))
 configD = yaml.safe_load(open("ConfigDHCP.yaml"))
 carte={}
 dhcp={}
+max_lease = configD["Globale"]["lease_max"]
+default_lease = configD["Globale"]["lease"]
 
 def creationInterface():
     
@@ -55,6 +58,7 @@ def creationInterface():
 
             else:
                 print("Systeme non prise en charge")
+        fichier.close()
     except:
         print("Problème script plus à jour")
 
@@ -70,10 +74,11 @@ def creationDHCP():
         elif os.path.exists("/etc/zypp/"):
             os.system("zypper install -y dhcp-server*")
 
+        # initialisation du fichier de conf avec la durée des baux par défaut
         fichierDHCP = open("/etc/dhcp/dhcpd.conf", "w")
         fichierDHCP.write("# durée des baux dhcp\n")
-        fichierDHCP.write("default-lease-time  600\n")
-        fichierDHCP.write("max-lease-time  7200\n \n \n")
+        fichierDHCP.write("default-lease-time " + default_lease + "\n")
+        fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
         fichierDHCP.write("# config des étendues DHCP\n")
 
         for dhcp_inf in configD:
@@ -85,6 +90,10 @@ def creationDHCP():
 
     except:
         print("Problème de script")
+
+
+# fonction d'ajout des VLANs
+def ajoutVLAN():
 
 # fonction main gérant le déroulé du script
 def main():

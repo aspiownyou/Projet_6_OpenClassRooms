@@ -1,0 +1,1 @@
+def configVLAN(vlan, fichier):

@@ -1,9 +1,13 @@
 # fichier des configurations DHCP
 
+# variable globale
+Globale:
+  lease: '600'          # durée par defaut des baux en secondes
+  lease_max: '7200'     # durée max des baux en secondes
+
+
 # premier pool
 Pool1:
-  lease: '600'          # en secondes
-  lease_max: '7200'     # en secondes
   subnet: '192.168.0.0'
   netmask: '255.255.255.0'
   range_start0: '192.168.0.50'
