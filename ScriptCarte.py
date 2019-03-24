@@ -11,15 +11,16 @@ import DebianScript as D
 import NetplanScript as N
 import OpenSuseScript as O
 import ScriptDHCP as sdhcp
-import ScriptVLAN as svlan
 
 #suppression des fichiers de conf de base
 #os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
 
 configE = yaml.safe_load(open("Config.yaml"))
 configD = yaml.safe_load(open("ConfigDHCP.yaml"))
+configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 carte={}
 dhcp={}
+vlan={}
 max_lease = configD["Globale"]["lease_max"]
 default_lease = configD["Globale"]["lease"]
 
@@ -32,7 +33,7 @@ def creationInterface():
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
-        elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
+        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
@@ -45,22 +46,22 @@ def creationInterface():
                 N.carteE(carte, fichier)
 
             #lancement du script de création du fichier pour base RedHat
-            elif os.path.exists("/etc/sysconfig/network-scripts/") and os.path.exists("/etc/netplan/") == False:
+            elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.carteE(carte)
     
             #lancement du script de création du fichier pour Debian
-            elif os.path.exists("/etc/network/") and os.path.exists("/etc/netplan/") == False:
+            elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.carteE(carte, fichier)
 
             #lancement du script de création du fichier pour OpenSuse
-            elif os.path.exists("/etc/sysconfig/network/") and os.path.exists("/etc/netplan/") == False:
+            elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.carteE(carte)
 
             else:
                 print("Systeme non prise en charge")
         fichier.close()
     except:
-        print("Problème script plus à jour")
+        print("Problème script ajout carte plus à jour")
 
 def creationDHCP():
 
@@ -89,11 +90,49 @@ def creationDHCP():
 
 
     except:
-        print("Problème de script")
+        print("Problème creation dhcp")
 
 
 # fonction d'ajout des VLANs
 def ajoutVLAN():
+
+    try:
+        #differientiation des versions debian et ubuntu
+        if os.path.exists("/etc/netplan/"):
+            fichier = open("/etc/netplan/50-cloud-init.yaml", "a")
+            fichier.write("\n  vlans:\n")
+        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+            fichier = open("/etc/network/interfaces", "a")
+            fichier.write("\n \n")
+            fichier.write("\n# declaration des vlans \n")
+
+        #boucle permettant de liste et traiter les vlans une a une
+        for vlan_inf in configv:
+            vlan = configE[vlan_inf]
+
+            #lancement du script de création du fichier pour Netplan
+            if os.path.exists("/etc/netplan/"):
+                N.carteE(vlan, fichier)
+
+            #lancement du script de création du fichier pour base RedHat
+            elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
+                R.carteE(vlan)
+    
+            #lancement du script de création du fichier pour Debian
+            elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+                D.carteE(vlan, fichier)
+
+            #lancement du script de création du fichier pour OpenSuse
+            elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
+                O.carteE(vlan)
+
+            else:
+                print("Systeme non prise en charge")
+        fichier.close()
+
+    except:
+        print("proble ajout vlan")
+        
 
 # fonction main gérant le déroulé du script
 def main():

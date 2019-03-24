@@ -7,7 +7,7 @@ def carteE(carte, fichier):
         fichier.write("      gateway4: " + carte["gateway"] + "\n")
 
 
-def vlan():
+def vlan(vlan, fichier):
     print("en cour")
 
 def routage():

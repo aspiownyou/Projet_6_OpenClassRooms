@@ -14,8 +14,19 @@ def carteE(carte):
         print("le fichier "+chemin+' à été créé')
         fichier.close()
 
-def vlan():
-    print("en cour")
+def vlan(vlan):
+        chemin = "/etc/sysconfig/network-scripts/ifcfg-" + vlan["device"]
+        fichier = open(chemin, "w")
+        fichier.write("DEVICE=" + vlan["device"] + "\n")
+        fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
+        fichier.write("ONBOOT=yes\n")
+        fichier.write("IPADDR=" + vlan["adresse"] + "\n")
+        fichier.write("NETMASK=" + vlan["netmask"] + "\n")
+        fichier.write("NETWORK=" + vlan["network"] + "\n")
+        fichier.write("VLAN=yes")
+
+        print("en cour")
+        fichier.close()
 
 def routage():
     print("en cour")
