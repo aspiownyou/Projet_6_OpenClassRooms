@@ -12,7 +12,7 @@ def carteE(carte, fichier):
     fichier.write("  broadcast " + carte["broadcast"] + "\n")
 
 def vlan(vlan, fichier):
-    fichier.write("\n\n# vlan " + str(vlan["num"]) "\n")
+    fichier.write("\n\n# vlan " + str(vlan["num"]) + "\n")
     fichier.write("auto " + vlan["device"] + "\n")
     fichier.write("iface " + vlan["device"] + " inet static\n")
     fichier.write("  address " + vlan["adresse"] + "\n")
