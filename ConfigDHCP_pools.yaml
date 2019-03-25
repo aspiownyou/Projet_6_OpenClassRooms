@@ -4,8 +4,8 @@
 Pool1:
   subnet: '192.168.0.0'
   netmask: '255.255.255.0'
-  range_start0: '192.168.0.50'
-  range_end0: '192.168.0.150'
+  range_start: '192.168.0.50'
+  range_end: '192.168.0.150'
   broadcast: '192.168.0.255'
   router: '192.168.0.1'
   dns: ''
