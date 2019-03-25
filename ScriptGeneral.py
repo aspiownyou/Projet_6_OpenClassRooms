@@ -147,11 +147,13 @@ def main():
     
     argument = sys.argv[1]
 
-    if argument == 'E':
+    if argument == 'E' or argument == 'e':
         creationInterface()
-    if argument == 'D':
+    elif argument == 'D' or argument == 'd':
         creationDHCP()
-    elif len(argument) < 2:
+    elif argument == 'V' or argument == 'v':
+        ajoutVLAN()
+    else:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E   creation d'interface(s) réseau")
         print("\n        D   configuraiton d'un serveur dhcp")

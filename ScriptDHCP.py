@@ -11,3 +11,5 @@ def configDHCP(dhcp, fichier):
         fichier.write("  option domain-name " + dhcp["domain"] + ";\n")
     elif dhcp["ntp"] != '':
         fichier.write("  option ntp-servers " + dhcp["ntp"] + ";\n")
+
+    fichier.write("}")
