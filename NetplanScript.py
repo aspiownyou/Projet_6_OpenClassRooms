@@ -15,6 +15,3 @@ def vlan(vlan, fichier):
     fichier.write("      adresses: " + vlan["adresse"] + "\n")
     if vlan["gateway"] != '':
         fichier.write("      gateway4: " + vlan["gateway"] + "\n")
-
-def routage():
-    print("en cour")

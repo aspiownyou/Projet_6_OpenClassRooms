@@ -29,6 +29,3 @@ def vlan(vlan):
 
         print("en cour")
         fichier.close()
-
-def routage():
-    print("en cour")

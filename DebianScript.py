@@ -18,6 +18,3 @@ def vlan(vlan, fichier):
     fichier.write("  address " + vlan["adresse"] + "\n")
     fichier.write("  netmask " + vlan["netmask"] + "\n")
     fichier.write("  vlan-raw-device " + vlan["interface"])
-
-def routage():
-    print("en cour")

@@ -138,12 +138,18 @@ def ajoutVLAN():
                 print("Systeme non prise en charge")
         fichier.close()
 
-    except Exception as e:
-        print(e)
+    except:
+        print("Probleme script vlan")
         
 
 # fonction main gérant le déroulé du script
 def main():
+
+    if len(sys.argv) < 2:
+        print("Il faut un argument pour appeller le script :\n")
+        print("\n        E   creation d'interface(s) réseau")
+        print("\n        D   configuraiton d'un serveur dhcp")
+        print("\n        V   configuration des vlan")
     
     argument = sys.argv[1]
 
@@ -158,7 +164,6 @@ def main():
         print("\n        E   creation d'interface(s) réseau")
         print("\n        D   configuraiton d'un serveur dhcp")
         print("\n        V   configuration des vlan")
-        print("\n        R   activation du routage")
 
 # appel du main pour au lancement du script
 main()
