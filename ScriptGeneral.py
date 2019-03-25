@@ -77,11 +77,18 @@ def creationDHCP():
             os.system("zypper install -y dhcp-server*")
 
         # initialisation du fichier de conf avec la durée des baux par défaut
-        fichierDHCP = open("/etc/dhcp/dhcpd.conf", "w")
-        fichierDHCP.write("# durée des baux dhcp\n")
-        fichierDHCP.write("default-lease-time " + default_lease + "\n")
-        fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
-        fichierDHCP.write("# config des étendues DHCP\n")
+        if os.path.exists("/etc/zypp/"):
+            fichierDHCP = open("/etc/dhcpd.conf", "w")
+            fichierDHCP.write("# durée des baux dhcp\n")
+            fichierDHCP.write("default-lease-time " + default_lease + "\n")
+            fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
+            fichierDHCP.write("# config des étendues DHCP\n")
+        else:
+            fichierDHCP = open("/etc/dhcp/dhcpd.conf", "w")
+            fichierDHCP.write("# durée des baux dhcp\n")
+            fichierDHCP.write("default-lease-time " + default_lease + "\n")
+            fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
+            fichierDHCP.write("# config des étendues DHCP\n")
 
         for dhcp_inf in configD:
             dhcp = configD[dhcp_inf]
