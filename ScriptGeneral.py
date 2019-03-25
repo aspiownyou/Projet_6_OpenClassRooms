@@ -138,8 +138,8 @@ def ajoutVLAN():
                 print("Systeme non prise en charge")
         fichier.close()
 
-    except:
-        print("proble ajout vlan")
+    except Exception as e:
+        print(e)
         
 
 # fonction main gérant le déroulé du script
