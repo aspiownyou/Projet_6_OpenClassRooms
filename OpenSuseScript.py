@@ -18,6 +18,7 @@ def carteE(carte):
 
 def vlan(vlan):
     chemin = "/etc/sysconfig/network/ifcfg-" + vlan["device"]
+    print(chemin)
     fichier = open(chemin, "w")
     fichier.write("DEVICE=" + vlan["device"] + "\n")
     fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
