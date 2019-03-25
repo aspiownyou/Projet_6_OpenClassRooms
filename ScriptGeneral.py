@@ -115,7 +115,7 @@ def ajoutVLAN():
             fichier.write("\n# declaration des vlans \n")
 
         #boucle permettant de liste et traiter les vlans une a une
-        for vlan_inf in configv:
+        for vlan_inf in configV:
             vlan = configV[vlan_inf]
 
             #lancement du script de création du fichier pour Netplan
