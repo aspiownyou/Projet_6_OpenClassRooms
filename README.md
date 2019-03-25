@@ -12,6 +12,8 @@ MODE D'EMPLOIS:
 
     Les scripts suivent les informations des fichiers yaml. Vous devez remplir les fichiers (ils possèdent deja tous une config pour vous guider) avec les informations de votre infrastructure. Vous avez la possibilité de faire plus de blocs d'instruction que ceux présents dans les fichiers, les scripts sont capables de gérer la présence d'un nombre aléatoire de blocs d'instructions.
 
+    Pour la création de VLAN et du DHCP, les cartes réseaux doivent être deja configurer pour qu'ils soient effectif.
+
 LISTE DES ARGUMENTS:
 
     - E : lance les scripts de création d'interface réseau. Créer les fichiers d'interfaces selon le fichier Config.yaml

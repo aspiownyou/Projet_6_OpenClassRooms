@@ -60,7 +60,14 @@ def creationInterface():
 
             else:
                 print("Systeme non prise en charge")
-        fichier.close()
+
+        if os.path.exists("/etc/NetworkManager"):
+            os.system("service NetworkManager restart")
+        elif os.path.exists("/etc/network/"):
+            os.system("service networking restart")
+        else:
+            os.system("service network restart")
+
     except:
         print("Problème script ajout carte plus à jour")
 
@@ -93,9 +100,13 @@ def creationDHCP():
         for dhcp_inf in configD:
             dhcp = configD[dhcp_inf]
             sdhcp.configDHCP(dhcp, fichierDHCP)
-        
-        fichierDHCP.close()
 
+        if os.path.exists("/etc/NetworkManager"):
+            os.system("service dhcpd restart")
+        elif os.path.exists("/etc/network/"):
+            os.system("service isc-dhcp-server restart")
+        else:
+            os.system("service dhcpd restart")
 
     except:
         print("Problème creation dhcp")
@@ -136,7 +147,13 @@ def ajoutVLAN():
 
             else:
                 print("Systeme non prise en charge")
-        fichier.close()
+        
+        if os.path.exists("/etc/NetworkManager"):
+            os.system("service NetworkManager restart")
+        elif os.path.exists("/etc/network/"):
+            os.system("service networking restart")
+        else:
+            os.system("service network restart")
 
     except:
         print("Probleme script vlan")
@@ -147,9 +164,9 @@ def main():
 
     if len(sys.argv) < 2:
         print("Il faut un argument pour appeller le script :\n")
-        print("\n        E   creation d'interface(s) réseau")
-        print("\n        D   configuraiton d'un serveur dhcp")
-        print("\n        V   configuration des vlan")
+        print("\n        E ou e   creation d'interface(s) réseau")
+        print("\n        D ou d   configuraiton d'un serveur dhcp")
+        print("\n        V ou v   configuration des vlan")
     
     argument = sys.argv[1]
 
@@ -161,9 +178,9 @@ def main():
         ajoutVLAN()
     else:
         print("Il faut un argument pour appeller le script :\n")
-        print("\n        E   creation d'interface(s) réseau")
-        print("\n        D   configuraiton d'un serveur dhcp")
-        print("\n        V   configuration des vlan")
+        print("\n        E ou e  creation d'interface(s) réseau")
+        print("\n        D ou d  configuraiton d'un serveur dhcp")
+        print("\n        V ou v  configuration des vlan")
 
 # appel du main pour au lancement du script
 main()
