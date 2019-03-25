@@ -22,8 +22,8 @@ lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 carte={}
 dhcp={}
 vlan={}
-max_lease = lease["lease_max"]
-default_lease = lease["lease"]
+max_lease = lease["Globale"]["lease_max"]
+default_lease = lease["Globale"]["lease"]
 
 def creationInterface():
     
