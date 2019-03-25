@@ -116,23 +116,23 @@ def ajoutVLAN():
 
         #boucle permettant de liste et traiter les vlans une a une
         for vlan_inf in configv:
-            vlan = configE[vlan_inf]
+            vlan = configV[vlan_inf]
 
             #lancement du script de création du fichier pour Netplan
             if os.path.exists("/etc/netplan/"):
-                N.carteE(vlan, fichier)
+                N.vlan(vlan, fichier)
 
             #lancement du script de création du fichier pour base RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
-                R.carteE(vlan)
+                R.vlan(vlan)
     
             #lancement du script de création du fichier pour Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-                D.carteE(vlan, fichier)
+                D.vlan(vlan, fichier)
 
             #lancement du script de création du fichier pour OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
-                O.carteE(vlan)
+                O.vlan(vlan)
 
             else:
                 print("Systeme non prise en charge")
