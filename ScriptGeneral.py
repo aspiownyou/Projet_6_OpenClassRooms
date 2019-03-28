@@ -5,30 +5,34 @@ import os
 import sys
 import yaml
 
-#importation des autres scripts
+# Import scripts from different supported Linux versions
 import RedHatScript as R
 import DebianScript as D
 import NetplanScript as N
 import OpenSuseScript as O
 import ScriptDHCP as sdhcp
 
-#suppression des fichiers de conf de base
-#os.system("rm -r /etc/sysconfig/network/network-scripts/ifcfg-*")
-
+# Opening YAML configuration files
 configE = yaml.safe_load(open("Config.yaml"))
 configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
+
+# Creating empty dictionaries for YAML data retrieval
 carte={}
 dhcp={}
 vlan={}
+
+# definition of variables for the DHCP part
 max_lease = lease["Globale"]["lease_max"]
 default_lease = lease["Globale"]["lease"]
 
+
+# Function of creating network interfaces according to the contents of the Config.yaml file
 def creationInterface():
     
     try:
-        #differientiation des versions debian et ubuntu
+        # Debian and Ubuntu (version 16.04 and higher) differentiating
         if os.path.exists("/etc/netplan/"):
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
@@ -38,29 +42,31 @@ def creationInterface():
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
-        #boucle permettant de liste et traiter les cartes une a une
+        # Interface file creation loop
         for card in configE:
             carte = configE[card]
 
-            #lancement du script de création du fichier pour Netplan
+            # Launching the interface creation script for Netplan
             if os.path.exists("/etc/netplan/"):
                 N.carteE(carte, fichier)
 
-            #lancement du script de création du fichier pour base RedHat
+            # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.carteE(carte)
     
-            #lancement du script de création du fichier pour Debian
+            # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.carteE(carte, fichier)
 
-            #lancement du script de création du fichier pour OpenSuse
+            # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.carteE(carte)
 
+            # If OS not supported
             else:
                 print("Systeme non prise en charge")
 
+        # Running network restart commands
         if os.path.exists("/etc/NetworkManager"):
             os.system("service NetworkManager restart")
         elif os.path.exists("/etc/network/"):
@@ -71,11 +77,13 @@ def creationInterface():
     except:
         print("Problème script ajout carte plus à jour")
 
+
+# ISC-DHCP Server installation and configuration function
 def creationDHCP():
 
     try:
 
-        #installation du paquet isc-dhcp-server
+        # Installing the ISC-DHCP-server package
         if os.path.exists("/etc/yum/"):
             os.system("yum install -y dhcp-server*")
         elif os.path.exists("/etc/apt/"):
@@ -83,8 +91,8 @@ def creationDHCP():
         elif os.path.exists("/etc/zypp/"):
             os.system("zypper install -y dhcp-server*")
 
-        # initialisation du fichier de conf avec la durée des baux par défaut
-        if os.path.exists("/etc/zypp/"):
+        # initializing the configuration file with the duration of the leases in the ConfigDHCP_lease.yaml file
+        if os.path.exists("/etc/zypp/"):                                        # If OpenSuse
             fichierDHCP = open("/etc/dhcpd.conf", "w")
             fichierDHCP.write("# durée des baux dhcp\n")
             fichierDHCP.write("default-lease-time " + default_lease + "\n")
@@ -97,26 +105,31 @@ def creationDHCP():
             fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
             fichierDHCP.write("# config des étendues DHCP\n")
 
+        # DHCP address pool fill loop
         for dhcp_inf in configD:
             dhcp = configD[dhcp_inf]
             sdhcp.configDHCP(dhcp, fichierDHCP)
 
+        # Executing service restart commands and automatic execution at startup
         if os.path.exists("/etc/NetworkManager"):
             os.system("service dhcpd restart")
+            os.system("systemctl enable dhcpd")
         elif os.path.exists("/etc/network/"):
             os.system("service isc-dhcp-server restart")
+            os.system("systemctl enable dhcpd")
         else:
             os.system("service dhcpd restart")
+            os.system("systemctl enable dhcpd")
 
     except:
         print("Problème creation dhcp")
 
 
-# fonction d'ajout des VLANs
+# VLAN configuration function with ConfigVLAN.yaml file
 def ajoutVLAN():
 
     try:
-        #differientiation des versions debian et ubuntu
+        # Debian and Ubuntu (version 16.04 and higher) differentiating
         if os.path.exists("/etc/netplan/"):
             fichier = open("/etc/netplan/50-cloud-init.yaml", "a")
             fichier.write("\n  vlans:\n")
@@ -125,29 +138,31 @@ def ajoutVLAN():
             fichier.write("\n \n")
             fichier.write("\n# declaration des vlans \n")
 
-        #boucle permettant de liste et traiter les vlans une a une
+        # Loop filling the interfaces configuration files
         for vlan_inf in configV:
             vlan = configV[vlan_inf]
 
-            #lancement du script de création du fichier pour Netplan
+            # Launching the interface creation script for Netplan
             if os.path.exists("/etc/netplan/"):
                 N.vlan(vlan, fichier)
 
-            #lancement du script de création du fichier pour base RedHat
+            # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.vlan(vlan)
     
-            #lancement du script de création du fichier pour Debian
+            # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.vlan(vlan, fichier)
 
-            #lancement du script de création du fichier pour OpenSuse
+            # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.vlan(vlan)
 
+            # If OS not supported
             else:
                 print("Systeme non prise en charge")
         
+        # Running network restart commands
         if os.path.exists("/etc/NetworkManager"):
             os.system("service NetworkManager restart")
         elif os.path.exists("/etc/network/"):
@@ -159,17 +174,20 @@ def ajoutVLAN():
         print("Probleme script vlan")
         
 
-# fonction main gérant le déroulé du script
+# Main function managing the script's unrolled
 def main():
 
+    # Testing the presence of an argument
     if len(sys.argv) < 2:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E ou e   creation d'interface(s) réseau")
         print("\n        D ou d   configuraiton d'un serveur dhcp")
         print("\n        V ou v   configuration des vlan")
     
+    # Retrieving the argument
     argument = sys.argv[1]
 
+    # Processing the argument and launching the attached function
     if argument == 'E' or argument == 'e':
         creationInterface()
     elif argument == 'D' or argument == 'd':
@@ -182,5 +200,5 @@ def main():
         print("\n        D ou d  configuraiton d'un serveur dhcp")
         print("\n        V ou v  configuration des vlan")
 
-# appel du main pour au lancement du script
+# Calling the main function
 main()

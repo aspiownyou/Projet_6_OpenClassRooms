@@ -1,4 +1,6 @@
-# fichier de conf des cartes réseaux
+# Configuring network adapters
+
+# Network adaptater #1
 Carte1:
   adresse: '192.168.0.1'
   reseau: '192.168.0.0'
@@ -9,8 +11,8 @@ Carte1:
   name: 'enp0s3'
   type: 'Ethernet'
   cidr: '24'
-  num: 1 # numéro de la carte important pour les distributions basé sur red hat
 
+# Network adaptater #1
 Carte2:
   adresse: '192.168.0.2'
   reseau: '192.168.0.0'
@@ -21,8 +23,8 @@ Carte2:
   name: 'ETH1'
   type: 'Ethernet'
   cidr: '24'
-  num: 2 # numéro de la carte important pour les distributions basé sur red hat
 
+# Network adaptater #1
 Carte3:
   adresse: '192.168.0.3'
   reseau: '192.168.0.0'
@@ -33,4 +35,3 @@ Carte3:
   name: 'ETH2'
   type: 'Ethernet'
   cidr: '24'
-  num: 3 # numéro de la carte important pour les distributions basé sur red hat

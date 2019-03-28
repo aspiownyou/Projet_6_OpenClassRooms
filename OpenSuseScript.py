@@ -1,9 +1,12 @@
-# Script pour OpenSuse
+# Script for configuring network interfaces and VLANS for OpenSuse versions
 
+# Network interface file creation function
 def carteE(carte):
 
-    x = carte["name"]
-    chemin = "/etc/sysconfig/network/ifcfg-" + x
+    # Creating the file path
+    chemin = "/etc/sysconfig/network/ifcfg-" + carte["name"]
+
+    # Creating the file and editing with the data in the YAML file
     fichier = open(chemin, "w")
     fichier.write("TYPE=" + carte["type"] + "\n")
     fichier.write("BOOTPROTO=" + carte["mode"] + "\n")
@@ -11,14 +14,22 @@ def carteE(carte):
     fichier.write("IPADDR=" + carte["adresse"] + "\n")
     fichier.write("NETMASK=" + carte["netmask"] + "\n")
     fichier.write("BROADCAST=" + carte["broadcast"])
+
+    # Optional parameter
     if carte["gateway"] != '':
         fichier.write("GATEWAY=" + carte["gateway"])
+    
+    # Viewing the created file
     print("le fichier "+chemin+' à été créé')
     fichier.close()
 
+# VLANS interface file creation function
 def vlan(vlan):
+
+    # Creating the file path
     chemin = "/etc/sysconfig/network/ifcfg-" + vlan["device"]
-    print(chemin)
+
+    # Creating the file and editing with the data in the YAML file
     fichier = open(chemin, "w")
     fichier.write("DEVICE=" + vlan["device"] + "\n")
     fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
@@ -28,5 +39,6 @@ def vlan(vlan):
     fichier.write("NETWORK=" + vlan["network"] + "\n")
     fichier.write("VLAN=yes")
 
-    print("en cour")
+    # Viewing the created file
+    print("le fichier "+chemin+' à été créé')
     fichier.close()

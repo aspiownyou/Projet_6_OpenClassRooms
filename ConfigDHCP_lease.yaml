@@ -1,6 +1,6 @@
-# fichier de configuration pour la durée des baux DHCP
+# Configuration file for the duration of DHCP leases
 
-# variable globale
+# Global variable
 Globale:
-  lease: '600'          # durée par defaut des baux en secondes
-  lease_max: '7200'     # durée max des baux en secondes
+  lease: '600'          # Duration by default of leases in seconds
+  lease_max: '7200'     # Maximum duration of leases in seconds

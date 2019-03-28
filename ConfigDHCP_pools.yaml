@@ -1,6 +1,6 @@
-# fichier des configurations des pools DHCP
+# DHCP pool configurations file
 
-# premier pool
+# Pool #1
 Pool1:
   subnet: '192.168.0.0'
   netmask: '255.255.255.0'
@@ -8,6 +8,6 @@ Pool1:
   range_end: '192.168.0.150'
   broadcast: '192.168.0.255'
   router: '192.168.0.1'
-  dns: ''
-  domain: ''
-  ntp: ''
+  dns: ''                       # Optional
+  domain: ''                    # Optional
+  ntp: ''                       # Optional

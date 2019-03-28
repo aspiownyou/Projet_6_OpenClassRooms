@@ -1,11 +1,10 @@
 # configuration des VLANs
 
 VLAN1:
-  device: 'enp0s3.1'  # doit etre ecrite sous la forme nomInterface.numeroVLAN
+  device: 'enp0s3.1'           # must be written in the form interface_name.vlan_number
   bootproto: 'static'
   adresse: '192.168.5.2'
   netmask: '255.255.255.0'
   network: '192.168.5.0'
-  gateway: ''
-  interface: 'enp0s3' # interface physique
-  num: 1
+  gateway: ''                  # Optional
+  interface: 'enp0s3'          # Physical interface
