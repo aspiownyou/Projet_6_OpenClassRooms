@@ -4,7 +4,7 @@
 def carteE(carte, fichier):
 
     # Editing with the data in the YAML file
-    fichier.write("\n \n# interface " + str(carte["name"]) + str(carte["adresse"]) + "\n")
+    fichier.write("\n \n# interface " + str(carte["name"]) + "  " + str(carte["adresse"]) + "\n")
     fichier.write("auto " + carte["name"] + "\n")
     fichier.write("allow-hotplug " + carte["name"] + "\n")
     fichier.write("iface " + carte["name"] + " inet static\n")
@@ -20,7 +20,7 @@ def carteE(carte, fichier):
 def vlan(vlan, fichier):
 
     # Editing with the data in the YAML file
-    fichier.write("\n\n# vlan " + str(vlan["name"]) + str(vlan["adresse"]) + "\n")
+    fichier.write("\n\n# vlan " + str(vlan["name"]) + "  " + str(vlan["adresse"]) + "\n")
     fichier.write("auto " + vlan["device"] + "\n")
     fichier.write("iface " + vlan["device"] + " inet static\n")
     fichier.write("  address " + vlan["adresse"] + "\n")
