@@ -20,7 +20,7 @@ configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 
 # Creating the configuration file in the directory of the running user
-repUser = str(os.system("echo $HOME")) + "ResultatScript.conf"
+repUser = os.popen("echo $HOME", "r") + "ResultatScript.conf"
 
 # Retrieving date and time
 date = datetime.datetime.now()
