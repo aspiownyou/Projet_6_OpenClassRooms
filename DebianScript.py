@@ -14,7 +14,7 @@ def carteE(carte, fichier):
     # Optional parameter
     if carte["gateway"] != '':
         fichier.write("  gateway " + carte["gateway"] + "\n")
-    fichier.write("  broadcast " + carte["broadcast"] + "\n")
+    # fichier.write("  broadcast " + carte["broadcast"] + "\n")
 
 # VLANS interface file creation function
 def vlan(vlan, fichier):
