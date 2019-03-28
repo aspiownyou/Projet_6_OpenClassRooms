@@ -4,6 +4,7 @@
 import os
 import sys
 import yaml
+import datetime
 
 # Import scripts from different supported Linux versions
 import RedHatScript as R
@@ -17,6 +18,11 @@ configE = yaml.safe_load(open("Config.yaml"))
 configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
+
+repUser = os.system("echo $HOME") + "ResultatScript.conf"
+date = datetime.datetime.now()
+fichConf = open(repUser, "a")
+fichConf.write(str(date) + "\n")
 
 # Creating empty dictionaries for YAML data retrieval
 carte={}
@@ -49,18 +55,24 @@ def creationInterface():
             # Launching the interface creation script for Netplan
             if os.path.exists("/etc/netplan/"):
                 N.carteE(carte, fichier)
+                print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
+                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.carteE(carte)
+                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
     
             # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.carteE(carte, fichier)
+                print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
+                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.carteE(carte)
+                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             # If OS not supported
             else:
@@ -109,6 +121,8 @@ def creationDHCP():
         for dhcp_inf in configD:
             dhcp = configD[dhcp_inf]
             sdhcp.configDHCP(dhcp, fichierDHCP)
+            print("Configuration du pool dhcp sur le réseau " + dhcp["subnet"])
+            fichConf.write("Configuration du pool dhcp sur le réseau " + dhcp["subnet"] + "\n")
 
         # Executing service restart commands and automatic execution at startup
         if os.path.exists("/etc/NetworkManager"):
@@ -145,18 +159,24 @@ def ajoutVLAN():
             # Launching the interface creation script for Netplan
             if os.path.exists("/etc/netplan/"):
                 N.vlan(vlan, fichier)
+                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.vlan(vlan)
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
     
             # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.vlan(vlan, fichier)
+                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.vlan(vlan)
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             # If OS not supported
             else:
@@ -190,10 +210,14 @@ def main():
     # Processing the argument and launching the attached function
     if argument == 'E' or argument == 'e':
         creationInterface()
+        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
+
     elif argument == 'D' or argument == 'd':
         creationDHCP()
+        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
     elif argument == 'V' or argument == 'v':
         ajoutVLAN()
+        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
     else:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E ou e  creation d'interface(s) réseau")
