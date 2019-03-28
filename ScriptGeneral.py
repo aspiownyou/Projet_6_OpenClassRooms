@@ -21,7 +21,7 @@ lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 
 # Creating the configuration file in the directory of the running user
 repUser = os.popen("echo $HOME").readline()
-repUser = str(repUser) + "ResultatScript.conf"
+repUser = repUser + "/ResultatScript.conf"
 
 # Retrieving date and time
 date = datetime.datetime.now()
