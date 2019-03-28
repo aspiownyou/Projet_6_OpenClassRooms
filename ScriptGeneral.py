@@ -19,8 +19,13 @@ configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 
+# Creating the configuration file in the directory of the running user
 repUser = os.system("echo $HOME") + "ResultatScript.conf"
+
+# Retrieving date and time
 date = datetime.datetime.now()
+
+# Ouverture et inscription de la date et de l'heure dans le nouveau fichier
 fichConf = open(repUser, "a")
 fichConf.write(str(date) + "\n")
 
@@ -86,8 +91,12 @@ def creationInterface():
         else:
             os.system("service network restart")
 
-    except:
+    except Exception as e:
         print("Problème script ajout carte plus à jour")
+        print(e)
+    
+    else:
+        print("Création des interfaces OK!")
 
 
 # ISC-DHCP Server installation and configuration function
@@ -135,8 +144,12 @@ def creationDHCP():
             os.system("service dhcpd restart")
             os.system("systemctl enable dhcpd")
 
-    except:
+    except Exception as e:
         print("Problème creation dhcp")
+        print(e)
+
+    else:
+        print("Configuration du DHCP OK!")
 
 
 # VLAN configuration function with ConfigVLAN.yaml file
@@ -190,8 +203,12 @@ def ajoutVLAN():
         else:
             os.system("service network restart")
 
-    except:
+    except Exception as e:
         print("Probleme script vlan")
+        print(e)
+
+    else:
+        print("Création des VLANs OK!")
         
 
 # Main function managing the script's unrolled
