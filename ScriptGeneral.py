@@ -45,13 +45,19 @@ def creationInterface():
     try:
         # Debian and Ubuntu (version 16.04 and higher) differentiating
         if os.path.exists("/etc/netplan/"):
+            os.system("service networking stop")
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+            os.system("service networking stop")
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
+        elif os.path.exists("/etc/NetworkManager/"):
+            os.system("service NetworkManager stop")
+        else:
+            os.system("service network stop")
 
 
         # Interface file creation loop
