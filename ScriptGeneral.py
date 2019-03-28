@@ -43,7 +43,7 @@ default_lease = lease["Globale"]["lease"]
 def creationInterface():
     
     try:
-        # Debian and Ubuntu (version 16.04 and higher) differentiating
+        # Debian and Ubuntu (version 16.04 and higher) differentiating and stopping network services
         if os.path.exists("/etc/netplan/"):
             os.system("service networking stop")
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
