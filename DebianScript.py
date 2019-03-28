@@ -9,7 +9,7 @@ def carteE(carte, fichier):
 
     # main card allocation
     if carte["primaire"] == 'y':
-        fichier.write("allow-hotplug " + configE["Carte1"]["name"] + "\n")
+        fichier.write("allow-hotplug " + carte["name"] + "\n")
 
     fichier.write("iface " + carte["name"] + " inet static\n")
     fichier.write("  address " + carte["adresse"] + "\n")

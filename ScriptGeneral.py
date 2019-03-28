@@ -63,34 +63,33 @@ def creationInterface():
                 N.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
+                os.system("service networking restart")
 
             # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.carteE(carte)
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
+                if os.path.exists("/etc/NetworkManager"):
+                    os.system("service NetworkManager restart")
+                else:
+                    os.system("service network restart")
     
             # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
+                os.system("service networking restart")
 
             # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.carteE(carte)
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
+                os.system("service network restart")
 
             # If OS not supported
             else:
                 print("Systeme non prise en charge")
-
-        # Running network restart commands
-        if os.path.exists("/etc/NetworkManager"):
-            os.system("service NetworkManager restart")
-        elif os.path.exists("/etc/network/"):
-            os.system("service networking restart")
-        else:
-            os.system("service network restart")
 
     except Exception as e:
         print("Problème script ajout carte plus à jour")
