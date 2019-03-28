@@ -8,8 +8,8 @@ def carteE(carte, fichier):
     fichier.write("auto " + carte["name"] + "\n")
 
     # main card allocation
-    if carte["primaire"] == 'y':
-        fichier.write("allow-hotplug " + carte["name"] + "\n")
+    #if carte["primaire"] == 'y':
+    #    fichier.write("allow-hotplug " + carte["name"] + "\n")
 
     fichier.write("iface " + carte["name"] + " inet static\n")
     fichier.write("  address " + carte["adresse"] + "\n")
