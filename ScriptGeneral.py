@@ -241,5 +241,8 @@ def main():
         print("\n        D ou d  configuraiton d'un serveur dhcp")
         print("\n        V ou v  configuration des vlan")
 
+    fichConf.write("\n \n \n")
+
+
 # Calling the main function
 main()
