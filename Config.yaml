@@ -11,6 +11,7 @@ Carte1:
   name: 'enp0s3'
   type: 'Ethernet'
   cidr: '24'
+  primaire: 'y'                # Specify if this is the main interface (y -> yes    n -> no). Only one card can be main !!!!
 
 # Network adaptater #1
 Carte2:
@@ -23,6 +24,7 @@ Carte2:
   name: 'enp0s8'
   type: 'Ethernet'
   cidr: '24'
+  primaire: 'n'                # Specify if this is the main interface (y -> yes    n -> no). Only one card can be main !!!!
 
 # Network adaptater #1
 Carte3:
@@ -35,3 +37,4 @@ Carte3:
   name: 'enp0s9'
   type: 'Ethernet'
   cidr: '24'
+  primaire: 'n'                # Specify if this is the main interface (y -> yes    n -> no). Only one card can be main !!!!

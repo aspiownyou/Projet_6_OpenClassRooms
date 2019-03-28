@@ -52,7 +52,6 @@ def creationInterface():
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
-            fichier.write("allow-hotplug " + configE["Carte1"]["name"] + "\n")
 
 
         # Interface file creation loop

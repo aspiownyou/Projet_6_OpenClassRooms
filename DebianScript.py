@@ -6,6 +6,11 @@ def carteE(carte, fichier):
     # Editing with the data in the YAML file
     fichier.write("\n \n# interface " + str(carte["name"]) + "  " + str(carte["adresse"]) + "\n")
     fichier.write("auto " + carte["name"] + "\n")
+
+    # main card allocation
+    if carte["primaire"] == 'y':
+        fichier.write("allow-hotplug " + configE["Carte1"]["name"] + "\n")
+
     fichier.write("iface " + carte["name"] + " inet static\n")
     fichier.write("  address " + carte["adresse"] + "\n")
     fichier.write("  netmask " + carte["netmask"] + "\n")
