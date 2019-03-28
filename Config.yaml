@@ -20,7 +20,7 @@ Carte2:
   netmask: '255.255.255.0'
   gateway: '192.168.0.254'
   mode: 'static'
-  name: 'ETH1'
+  name: 'enp0s8'
   type: 'Ethernet'
   cidr: '24'
 
@@ -32,6 +32,6 @@ Carte3:
   netmask: '255.255.255.0'
   gateway: '192.168.0.254'
   mode: 'static'
-  name: 'ETH2'
+  name: 'enp0s9'
   type: 'Ethernet'
   cidr: '24'
