@@ -46,23 +46,23 @@ def creationInterface():
     try:
         # Debian and Ubuntu (version 16.04 and higher) differentiating and stopping network services
         if os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
+        #    os.system("service networking stop")
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
+        #    os.system("service networking stop")
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
-        elif os.path.exists("/etc/NetworkManager/"):
-            os.system("service NetworkManager stop")
-        else:
-            os.system("service network stop")
+        #elif os.path.exists("/etc/NetworkManager/"):
+        #    os.system("service NetworkManager stop")
+        #else:
+        #    os.system("service network stop")
 
         
-        print("Arret du service réseau...")
-        time.sleep(15)
+        #print("Arret du service réseau...")
+        #time.sleep(15)
 
 
         # Interface file creation loop
@@ -103,17 +103,17 @@ def creationInterface():
                 print("Systeme non prise en charge")
 
 
-        print("Redémarrage du service réseau...")
-        time.sleep(15)
-        
-        if os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
-        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
-        elif os.path.exists("/etc/NetworkManager/"):
-            os.system("service NetworkManager stop")
-        else:
-            os.system("service network stop")
+        #print("Redémarrage du service réseau...")
+        #time.sleep(15)
+
+        #if os.path.exists("/etc/netplan/"):
+        #    os.system("service networking stop")
+        #elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+        #    os.system("service networking stop")
+        #elif os.path.exists("/etc/NetworkManager/"):
+        #    os.system("service NetworkManager stop")
+        #else:
+        #    os.system("service network stop")
 
     except Exception as e:
         print("Problème script ajout carte plus à jour")
