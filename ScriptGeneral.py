@@ -44,90 +44,129 @@ default_lease = lease["Globale"]["lease"]
 def creationInterface():
     
     try:
-
-        if os.path.exists("/etc/netplan/"):
+        
+################### Linux distribution detection ###################
+        
+        # Netplan (Ubuntu 16.04 and later)
+        if os.path.exists("/etc/netplan/"): 
     
+            # Opening the Netplan configuration file
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
 
+            # Interface configuration loop
             for card in configE:
                 carte = configE[card]
-                N.carteE(carte, fichier)
+                N.carteE(carte, fichier)    # Calling the interface configuration function in the NetplanScript.py script
+
+                # Display of the configured interface
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
+
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
     
+            # Application of changes
             os.system("netplan apply")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
     
+            # Stopping network service
             os.system("service networking stop")
-
             print("Arret du service réseau...")
             time.sleep(5)
 
+            # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
 
+            # Interface configuration loop
             for card in configE:
                 carte = configE[card]
-                D.carteE(carte, fichier)
+                D.carteE(carte, fichier)  # Calling the interface configuration function in the DebianScript.py script
+
+                # Display of the configured interface
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
+            # Starting network service
             os.system("service networking start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
-            if os.path.exists("/etc/NetworkManager/"):
+            if os.path.exists("/etc/NetworkManager/"):   # Fedora
+                
+                # Stopping NetworkManager
                 os.system("service NetworkManager stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
             else:
+                
+                # Stopping network service
                 os.system("service network stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
 
+            # Interface configuration loop
             for card in configE:
                 carte = configE[card]
-                R.carteE(carte)
+                R.carteE(carte)    # Calling the interface configuration function in the RedHatScript.py script
+
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             if os.path.exists("/etc/NetworkManager/"):
+
+                # Starting NetworkManager
                 os.system("service NetworkManager start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
             else:
+
+                # Starting network service
                 os.system("service network start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
 
+        # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
     
+            # Stopping network service
             os.system("service network stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
+            # Interface configuration loop
             for card in configE:
                 carte = configE[card]
-                O.carteE(carte)
+                O.carteE(carte)     # Calling the interface configuration function in the OpenSuseScript.py script
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
+            # Starting network service
             os.system("service network start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Linux distribution not supported
         else:
             print("Systeme non pris en charge")
 
+    # Retrieving exceptions
     except Exception as e:
         print("Problème script ajout carte plus à jour")
         print(e)
     
+    # If the script is executed correctly
     else:
         print("Création des interfaces OK!")
 
@@ -189,89 +228,128 @@ def creationDHCP():
 def ajoutVLAN():
 
     try:
-        # Debian and Ubuntu (version 16.04 and higher) differentiating
+
+################### Linux distribution detection ###################
+        
+        # Netplan (Ubuntu 16.04 and later)
         if os.path.exists("/etc/netplan/"):
     
+            # Opening the Netplan configuration file
             fichier = open("/etc/netplan/50-cloud-init.yaml", "a")
             fichier.write("\n  vlans:\n")
 
+            # VLAN configuration loop
             for vlan_inf in configV:
                 vlan = configV[vlan_inf]
-                N.vlan(vlan, fichier)
+                N.vlan(vlan, fichier)       # Calling the vlans configuration function in the NetplanScript.py script
+                
+                # Display of the configured vlan
                 print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
     
+            # Application of changes
             os.system("netplan apply")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
     
+            # Stopping network service
             os.system("service networking stop")
-
             print("Arret du service réseau...")
             time.sleep(5)
 
+            # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "a")
             fichier.write("\n \n")
             fichier.write("\n# declaration des vlans \n")
 
+            # VLAN configuration loop
             for vlan_inf in configV:
                 vlan = configV[vlan_inf]
-                D.vlan(vlan, fichier)
+                D.vlan(vlan, fichier)       # Calling the vlans configuration function in the DebianScript.py script
+                
+                # Display of the configured VLAN
                 print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
+            # Starting network service
             os.system("service networking start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
-            if os.path.exists("/etc/NetworkManager/"):
+            if os.path.exists("/etc/NetworkManager/"):      # Fedora
+                
+                # Stopping NetworkManager
                 os.system("service NetworkManager stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
             else:
+                
+                # Stopping network service
                 os.system("service network stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
 
+            # VLAN configuration loop
             for vlan_inf in configV:
                 vlan = configV[vlan_inf]
-                R.vlan(vlan)
+                R.vlan(vlan)        # Calling the vlans configuration function in the RedHatScript.py script
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             if os.path.exists("/etc/NetworkManager/"):
+                
+                # Starting NetworkManager
                 os.system("service NetworkManager start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
             else:
+                
+                # Starting network service
                 os.system("service network start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
 
+        # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
     
+            # Stopping network service
             os.system("service network stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
+            # VLAN configuration loop
             for vlan_inf in configV:
                 vlan = configV[vlan_inf]
-                O.vlan(vlan)
+                O.vlan(vlan)        # Calling the vlans configuration function in the OpenSuseScript.py script
+                
+                # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
+            # Starting network service
             os.system("service network start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
+        # Linux distribution not supported
         else:
             print("Systeme non pris en charge")
 
+    # Catching exceptions
     except Exception as e:
         print("Probleme script vlan")
         print(e)
 
+    # If the script is executed correctly
     else:
         print("Création des VLANs OK!")
         
