@@ -46,19 +46,19 @@ def creationInterface():
     try:
         # Debian and Ubuntu (version 16.04 and higher) differentiating and stopping network services
         if os.path.exists("/etc/netplan/"):
-            subprocess.call("service", "networking", "stop")
+            subprocess.call(["service", "networking", "stop"])
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            subprocess.call("service", "networking", "stop")
+            subprocess.call(["service", "networking", "stop"])
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
         elif os.path.exists("/etc/NetworkManager/"):
-            subprocess.call("service", "NetworkManager", "stop")
+            subprocess.call(["service", "NetworkManager", "stop"])
         else:
-            subprocess.call("service", "network", "stop")
+            subprocess.call(["service", "network", "stop"])
 
 
         # Interface file creation loop
@@ -99,13 +99,13 @@ def creationInterface():
         print("Création des interfaces OK!")
         # Starting network services
         if os.path.exists("/etc/netplan/"):
-            subprocess.call("service", "networking", "stop")
+            subprocess.call(["service", "networking", "stop"])
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            subprocess.call("service", "networking", "stop")
+            subprocess.call(["service", "networking", "stop"])
         elif os.path.exists("/etc/NetworkManager/"):
-            subprocess.call("service", "NetworkManager", "stop")
+            subprocess.call(["service", "NetworkManager", "stop"])
         else:
-            subprocess.call("service", "network", "stop")
+            subprocess.call(["service", "network", "stop"])
 
 
 
