@@ -44,76 +44,85 @@ default_lease = lease["Globale"]["lease"]
 def creationInterface():
     
     try:
-        # Debian and Ubuntu (version 16.04 and higher) differentiating and stopping network services
+
         if os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
+    
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
-        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
-            fichier = open("/etc/network/interfaces", "w")
-            fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
-        elif os.path.exists("/etc/NetworkManager/"):
-            os.system("service NetworkManager stop")
-        else:
-            os.system("service network stop")
 
-        
-        print("Arret du service réseau...")
-        time.sleep(5)
-
-
-        # Interface file creation loop
-        for card in configE:
-            carte = configE[card]
-
-            # Launching the interface creation script for Netplan
-            if os.path.exists("/etc/netplan/"):
+            for card in configE:
+                carte = configE[card]
                 N.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service networking restart")
-
-            # Launching the interface creation script for RedHat
-            elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
-                R.carteE(carte)
-                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                if os.path.exists("/etc/NetworkManager"):
-                    os.system("service NetworkManager restart")
-                else:
-                    os.system("service network restart")
     
-            # Launching the interface creation script for Debian
-            elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+            os.system("netplan apply")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
+
+        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+    
+            os.system("service networking stop")
+
+            print("Arret du service réseau...")
+            time.sleep(5)
+
+            fichier = open("/etc/network/interfaces", "w")
+            fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
+
+            for card in configE:
+                carte = configE[card]
                 D.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service networking restart")
 
-            # Launching the interface creation script for OpenSuse
-            elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
+            os.system("service networking start")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
+
+        elif os.path.exists("/etc/sysconfig/network-scripts/"):
+            if os.path.exists("/etc/NetworkManager/"):
+                os.system("service NetworkManager stop")
+                print("Arret du service réseau...")
+                time.sleep(5)
+            else:
+                os.system("service network stop")
+                print("Arret du service réseau...")
+                time.sleep(5)
+
+            for card in configE:
+                carte = configE[card]
+                R.carteE(carte)
+                fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
+
+            if os.path.exists("/etc/NetworkManager/"):
+                os.system("service NetworkManager start")
+                print("Redémarrage du service réseau...")
+                time.sleep(10)
+            else:
+                os.system("service network start")
+                print("Redémarrage du service réseau...")
+                time.sleep(10)
+
+        elif os.path.exists("/etc/sysconfig/network/"):
+    
+            os.system("service network stop")
+            print("Arret du service réseau...")
+            time.sleep(5)
+
+            for card in configE:
+                carte = configE[card]
                 O.carteE(carte)
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service network restart")
 
-            # If OS not supported
-            else:
-                print("Systeme non prise en charge")
+            os.system("service network start")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
 
-
-        print("Redémarrage du service réseau...")
-        time.sleep(10)
-
-        if os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
-        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
-        elif os.path.exists("/etc/NetworkManager/"):
-            os.system("service NetworkManager stop")
         else:
-            os.system("service network stop")
+            print("Systeme non pris en charge")
 
     except Exception as e:
         print("Problème script ajout carte plus à jour")
@@ -182,50 +191,82 @@ def ajoutVLAN():
     try:
         # Debian and Ubuntu (version 16.04 and higher) differentiating
         if os.path.exists("/etc/netplan/"):
+    
             fichier = open("/etc/netplan/50-cloud-init.yaml", "a")
             fichier.write("\n  vlans:\n")
+
+            for vlan_inf in configV:
+                vlan = configV[vlan_inf]
+                N.vlan(vlan, fichier)
+                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+    
+            os.system("netplan apply")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
+
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+    
+            os.system("service networking stop")
+
+            print("Arret du service réseau...")
+            time.sleep(5)
+
             fichier = open("/etc/network/interfaces", "a")
             fichier.write("\n \n")
             fichier.write("\n# declaration des vlans \n")
 
-        # Loop filling the interfaces configuration files
-        for vlan_inf in configV:
-            vlan = configV[vlan_inf]
-
-            # Launching the interface creation script for Netplan
-            if os.path.exists("/etc/netplan/"):
-                N.vlan(vlan, fichier)
-                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
-
-            # Launching the interface creation script for RedHat
-            elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
-                R.vlan(vlan)
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
-    
-            # Launching the interface creation script for Debian
-            elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+            for vlan_inf in configV:
+                vlan = configV[vlan_inf]
                 D.vlan(vlan, fichier)
                 print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
-            # Launching the interface creation script for OpenSuse
-            elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
+            os.system("service networking start")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
+
+        elif os.path.exists("/etc/sysconfig/network-scripts/"):
+            if os.path.exists("/etc/NetworkManager/"):
+                os.system("service NetworkManager stop")
+                print("Arret du service réseau...")
+                time.sleep(5)
+            else:
+                os.system("service network stop")
+                print("Arret du service réseau...")
+                time.sleep(5)
+
+            for vlan_inf in configV:
+                vlan = configV[vlan_inf]
+                R.vlan(vlan)
+                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+
+            if os.path.exists("/etc/NetworkManager/"):
+                os.system("service NetworkManager start")
+                print("Redémarrage du service réseau...")
+                time.sleep(10)
+            else:
+                os.system("service network start")
+                print("Redémarrage du service réseau...")
+                time.sleep(10)
+
+        elif os.path.exists("/etc/sysconfig/network/"):
+    
+            os.system("service network stop")
+            print("Arret du service réseau...")
+            time.sleep(5)
+
+            for vlan_inf in configV:
+                vlan = configV[vlan_inf]
                 O.vlan(vlan)
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
-            # If OS not supported
-            else:
-                print("Systeme non prise en charge")
-        
-        # Running network restart commands
-        if os.path.exists("/etc/NetworkManager"):
-            os.system("service NetworkManager restart")
-        elif os.path.exists("/etc/network/"):
-            os.system("service networking restart")
+            os.system("service network start")
+            print("Redémarrage du service réseau...")
+            time.sleep(10)
+
         else:
-            os.system("service network restart")
+            print("Systeme non pris en charge")
 
     except Exception as e:
         print("Probleme script vlan")
