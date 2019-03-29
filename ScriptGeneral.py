@@ -149,14 +149,14 @@ def creationDHCP():
         if os.path.exists("/etc/zypp/"):                                        # If OpenSuse
             fichierDHCP = open("/etc/dhcpd.conf", "w")
             fichierDHCP.write("# durée des baux dhcp\n")
-            fichierDHCP.write("default-lease-time " + default_lease + "\n")
-            fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
+            fichierDHCP.write("default-lease-time " + default_lease + ";" + "\n")
+            fichierDHCP.write("max-lease-time " + max_lease + ";" + "\n \n \n")
             fichierDHCP.write("# config des étendues DHCP\n")
         else:
             fichierDHCP = open("/etc/dhcp/dhcpd.conf", "w")
             fichierDHCP.write("# durée des baux dhcp\n")
-            fichierDHCP.write("default-lease-time " + default_lease + "\n")
-            fichierDHCP.write("max-lease-time " + max_lease + "\n \n \n")
+            fichierDHCP.write("default-lease-time " + default_lease + ";" + "\n")
+            fichierDHCP.write("max-lease-time " + max_lease + ";" + "\n \n \n")
             fichierDHCP.write("# config des étendues DHCP\n")
 
         # DHCP address pool fill loop
