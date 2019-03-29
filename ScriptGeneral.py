@@ -3,6 +3,7 @@
 
 import os
 import sys
+import subprocess
 import yaml
 import datetime
 
@@ -45,19 +46,19 @@ def creationInterface():
     try:
         # Debian and Ubuntu (version 16.04 and higher) differentiating and stopping network services
         if os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
+            subprocess.call("service", "networking", "stop")
             fichier = open("/etc/netplan/50-cloud-init.yaml", "w")
             fichier.write("network:\n")
             fichier.write("  version: 2\n")
             fichier.write("  ethernets:\n")
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-            os.system("service networking stop")
+            subprocess.call("service", "networking", "stop")
             fichier = open("/etc/network/interfaces", "w")
             fichier.write("# The loopback network interface \nauto lo \niface lo inet loopback \n \n")
         elif os.path.exists("/etc/NetworkManager/"):
-            os.system("service NetworkManager stop")
+            subprocess.call("service", "NetworkManager", "stop")
         else:
-            os.system("service network stop")
+            subprocess.call("service", "network", "stop")
 
 
         # Interface file creation loop
@@ -69,29 +70,22 @@ def creationInterface():
                 N.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service networking restart")
 
             # Launching the interface creation script for RedHat
             elif os.path.exists("/etc/sysconfig/network-scripts/") and not os.path.exists("/etc/netplan/"):
                 R.carteE(carte)
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                if os.path.exists("/etc/NetworkManager"):
-                    os.system("service NetworkManager restart")
-                else:
-                    os.system("service network restart")
     
             # Launching the interface creation script for Debian
             elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
                 D.carteE(carte, fichier)
                 print("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"])
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service networking restart")
 
             # Launching the interface creation script for OpenSuse
             elif os.path.exists("/etc/sysconfig/network/") and not os.path.exists("/etc/netplan/"):
                 O.carteE(carte)
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-                os.system("service network restart")
 
             # If OS not supported
             else:
@@ -103,6 +97,16 @@ def creationInterface():
     
     else:
         print("Création des interfaces OK!")
+        # Starting network services
+        if os.path.exists("/etc/netplan/"):
+            subprocess.call("service", "networking", "stop")
+        elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+            subprocess.call("service", "networking", "stop")
+        elif os.path.exists("/etc/NetworkManager/"):
+            subprocess.call("service", "NetworkManager", "stop")
+        else:
+            subprocess.call("service", "network", "stop")
+
 
 
 # ISC-DHCP Server installation and configuration function
