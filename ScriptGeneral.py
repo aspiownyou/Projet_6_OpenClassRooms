@@ -104,7 +104,7 @@ def creationInterface():
 
 
         print("Redémarrage du service réseau...")
-        time.sleep(15)
+        time.sleep(10)
 
         if os.path.exists("/etc/netplan/"):
             os.system("service networking stop")
