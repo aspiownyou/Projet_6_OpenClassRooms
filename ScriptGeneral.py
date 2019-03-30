@@ -76,7 +76,7 @@ def creationInterface():
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
     
             # Stopping network service
-            os.system("service networking stop")
+            os.system("/etc/init.d/networking stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
@@ -96,7 +96,7 @@ def creationInterface():
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             # Starting network service
-            os.system("service networking start")
+            os.system("/etc/init.d/networking start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
@@ -105,13 +105,13 @@ def creationInterface():
             if os.path.exists("/etc/NetworkManager/"):   # Fedora
                 
                 # Stopping NetworkManager
-                os.system("service NetworkManager stop")
+                os.system("/etc/init.d/NetworkManager stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
             else:
                 
                 # Stopping network service
-                os.system("service network stop")
+                os.system("/etc/init.d/network stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
 
@@ -126,13 +126,13 @@ def creationInterface():
             if os.path.exists("/etc/NetworkManager/"):
 
                 # Starting NetworkManager
-                os.system("service NetworkManager start")
+                os.system("/etc/init.d/NetworkManager start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
             else:
 
                 # Starting network service
-                os.system("service network start")
+                os.system("/etc/init.d/network start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
 
@@ -140,7 +140,7 @@ def creationInterface():
         elif os.path.exists("/etc/sysconfig/network/"):
     
             # Stopping network service
-            os.system("service network stop")
+            os.system("/etc/init.d/network stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
@@ -153,7 +153,7 @@ def creationInterface():
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
             # Starting network service
-            os.system("service network start")
+            os.system("/etc/init.d/network start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
@@ -207,13 +207,13 @@ def creationDHCP():
 
         # Executing service restart commands and automatic execution at startup
         if os.path.exists("/etc/NetworkManager"):
-            os.system("service dhcpd restart")
+            os.system("/etc/init.d/dhcpd restart")
             os.system("systemctl enable dhcpd")
         elif os.path.exists("/etc/network/"):
-            os.system("service isc-dhcp-server restart")
+            os.system("/etc/init.d/isc-dhcp-server restart")
             os.system("systemctl enable dhcpd")
         else:
-            os.system("service dhcpd restart")
+            os.system("/etc/init.d/dhcpd restart")
             os.system("systemctl enable dhcpd")
 
     except Exception as e:
@@ -258,7 +258,7 @@ def ajoutVLAN():
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
     
             # Stopping network service
-            os.system("service networking stop")
+            os.system("/etc/init.d/networking stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
@@ -279,7 +279,7 @@ def ajoutVLAN():
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             # Starting network service
-            os.system("service networking start")
+            os.system("/etc/init.d/networking start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
@@ -288,13 +288,13 @@ def ajoutVLAN():
             if os.path.exists("/etc/NetworkManager/"):      # Fedora
                 
                 # Stopping NetworkManager
-                os.system("service NetworkManager stop")
+                os.system("/etc/init.d/NetworkManager stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
             else:
                 
                 # Stopping network service
-                os.system("service network stop")
+                os.system("/etc/init.d/network stop")
                 print("Arret du service réseau...")
                 time.sleep(5)
 
@@ -309,13 +309,13 @@ def ajoutVLAN():
             if os.path.exists("/etc/NetworkManager/"):
                 
                 # Starting NetworkManager
-                os.system("service NetworkManager start")
+                os.system("/etc/init.d/NetworkManager start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
             else:
                 
                 # Starting network service
-                os.system("service network start")
+                os.system("/etc/init.d/network start")
                 print("Redémarrage du service réseau...")
                 time.sleep(10)
 
@@ -323,7 +323,7 @@ def ajoutVLAN():
         elif os.path.exists("/etc/sysconfig/network/"):
     
             # Stopping network service
-            os.system("service network stop")
+            os.system("/etc/init.d/network stop")
             print("Arret du service réseau...")
             time.sleep(5)
 
@@ -336,7 +336,7 @@ def ajoutVLAN():
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
             # Starting network service
-            os.system("service network start")
+            os.system("/etc/init.d/network start")
             print("Redémarrage du service réseau...")
             time.sleep(10)
 
