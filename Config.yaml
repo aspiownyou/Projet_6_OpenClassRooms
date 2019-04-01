@@ -6,7 +6,7 @@ Carte1:
   reseau: '192.168.0.0'
   broadcast: '192.168.0.255'
   netmask: '255.255.255.0'
-  gateway: ''
+  gateway: ''                 # ONLY ONE GATEWAY (it's the default gateway)
   mode: 'static'
   name: 'enp0s3'
   type: 'Ethernet'

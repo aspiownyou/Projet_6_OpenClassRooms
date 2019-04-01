@@ -70,7 +70,6 @@ def creationInterface():
             # Application of changes
             os.system("netplan apply")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
@@ -78,7 +77,6 @@ def creationInterface():
             # Stopping network service
             os.system("/etc/init.d/networking stop")
             print("Arret du service réseau...")
-            time.sleep(5)
 
             # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "w")
@@ -98,7 +96,6 @@ def creationInterface():
             # Starting network service
             os.system("/etc/init.d/networking start")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
@@ -107,13 +104,12 @@ def creationInterface():
                 # Stopping NetworkManager
                 os.system("/etc/init.d/NetworkManager stop")
                 print("Arret du service réseau...")
-                time.sleep(5)
+
             else:
                 
                 # Stopping network service
                 os.system("/etc/init.d/network stop")
                 print("Arret du service réseau...")
-                time.sleep(5)
 
             # Interface configuration loop
             for card in configE:
@@ -128,13 +124,12 @@ def creationInterface():
                 # Starting NetworkManager
                 os.system("/etc/init.d/NetworkManager start")
                 print("Redémarrage du service réseau...")
-                time.sleep(10)
+
             else:
 
                 # Starting network service
                 os.system("/etc/init.d/network start")
                 print("Redémarrage du service réseau...")
-                time.sleep(10)
 
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
@@ -142,7 +137,6 @@ def creationInterface():
             # Stopping network service
             os.system("/etc/init.d/network stop")
             print("Arret du service réseau...")
-            time.sleep(5)
 
             # Interface configuration loop
             for card in configE:
@@ -155,7 +149,6 @@ def creationInterface():
             # Starting network service
             os.system("/etc/init.d/network start")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Linux distribution not supported
         else:
@@ -252,7 +245,6 @@ def ajoutVLAN():
             # Application of changes
             os.system("netplan apply")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
@@ -260,7 +252,6 @@ def ajoutVLAN():
             # Stopping network service
             os.system("/etc/init.d/networking stop")
             print("Arret du service réseau...")
-            time.sleep(5)
 
             # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "a")
@@ -281,7 +272,6 @@ def ajoutVLAN():
             # Starting network service
             os.system("/etc/init.d/networking start")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
@@ -290,13 +280,12 @@ def ajoutVLAN():
                 # Stopping NetworkManager
                 os.system("/etc/init.d/NetworkManager stop")
                 print("Arret du service réseau...")
-                time.sleep(5)
+
             else:
                 
                 # Stopping network service
                 os.system("/etc/init.d/network stop")
                 print("Arret du service réseau...")
-                time.sleep(5)
 
             # VLAN configuration loop
             for vlan_inf in configV:
@@ -311,13 +300,12 @@ def ajoutVLAN():
                 # Starting NetworkManager
                 os.system("/etc/init.d/NetworkManager start")
                 print("Redémarrage du service réseau...")
-                time.sleep(10)
+
             else:
                 
                 # Starting network service
                 os.system("/etc/init.d/network start")
                 print("Redémarrage du service réseau...")
-                time.sleep(10)
 
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
@@ -325,7 +313,6 @@ def ajoutVLAN():
             # Stopping network service
             os.system("/etc/init.d/network stop")
             print("Arret du service réseau...")
-            time.sleep(5)
 
             # VLAN configuration loop
             for vlan_inf in configV:
@@ -338,7 +325,6 @@ def ajoutVLAN():
             # Starting network service
             os.system("/etc/init.d/network start")
             print("Redémarrage du service réseau...")
-            time.sleep(10)
 
         # Linux distribution not supported
         else:
