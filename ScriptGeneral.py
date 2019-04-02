@@ -102,7 +102,7 @@ def creationInterface():
             if os.path.exists("/etc/NetworkManager/"):   # Fedora
                 
                 # Stopping NetworkManager
-                os.system("/etc/init.d/NetworkManager stop")
+                os.system("service NetworkManager stop")
                 print("Arret du service réseau...")
 
             else:
@@ -122,7 +122,7 @@ def creationInterface():
             if os.path.exists("/etc/NetworkManager/"):
 
                 # Starting NetworkManager
-                os.system("/etc/init.d/NetworkManager start")
+                os.system("service NetworkManager start")
                 print("Redémarrage du service réseau...")
 
             else:
@@ -278,7 +278,7 @@ def ajoutVLAN():
             if os.path.exists("/etc/NetworkManager/"):      # Fedora
                 
                 # Stopping NetworkManager
-                os.system("/etc/init.d/NetworkManager stop")
+                os.system("service NetworkManager stop")
                 print("Arret du service réseau...")
 
             else:
@@ -298,7 +298,7 @@ def ajoutVLAN():
             if os.path.exists("/etc/NetworkManager/"):
                 
                 # Starting NetworkManager
-                os.system("/etc/init.d/NetworkManager start")
+                os.system("service NetworkManager start")
                 print("Redémarrage du service réseau...")
 
             else:
