@@ -20,16 +20,6 @@ configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
 lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
 
-# Creating the configuration file
-repUser = "/tmp/ResultatScript.conf"
-
-# Retrieving date and time
-date = datetime.datetime.now()
-
-# Ouverture et inscription de la date et de l'heure dans le nouveau fichier
-fichConf = open(repUser, "a")
-fichConf.write(str(date) + "\n")
-
 # Creating empty dictionaries for YAML data retrieval
 carte={}
 dhcp={}
@@ -41,7 +31,7 @@ default_lease = lease["Globale"]["lease"]
 
 
 # Function of creating network interfaces according to the contents of the Config.yaml file
-def creationInterface():
+def creationInterface(fichConf):
     
     try:
         
@@ -165,7 +155,7 @@ def creationInterface():
 
 
 # ISC-DHCP Server installation and configuration function
-def creationDHCP():
+def creationDHCP(fichConf):
 
     try:
 
@@ -218,7 +208,7 @@ def creationDHCP():
 
 
 # VLAN configuration function with ConfigVLAN.yaml file
-def ajoutVLAN():
+def ajoutVLAN(fichConf):
 
     try:
 
@@ -339,39 +329,3 @@ def ajoutVLAN():
     else:
         print("Création des VLANs OK!")
         
-
-# Main function managing the script's unrolled
-def main():
-
-    # Testing the presence of an argument
-    if len(sys.argv) < 2:
-        print("Il faut un argument pour appeller le script :\n")
-        print("\n        E ou e   creation d'interface(s) réseau")
-        print("\n        D ou d   configuraiton d'un serveur dhcp")
-        print("\n        V ou v   configuration des vlan")
-    
-    # Retrieving the argument
-    argument = sys.argv[1]
-
-    # Processing the argument and launching the attached function
-    if argument == 'E' or argument == 'e':
-        creationInterface()
-        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
-
-    elif argument == 'D' or argument == 'd':
-        creationDHCP()
-        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
-    elif argument == 'V' or argument == 'v':
-        ajoutVLAN()
-        print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
-    else:
-        print("Il faut un argument pour appeller le script :\n")
-        print("\n        E ou e  creation d'interface(s) réseau")
-        print("\n        D ou d  configuraiton d'un serveur dhcp")
-        print("\n        V ou v  configuration des vlan")
-
-    fichConf.write("\n \n \n")
-
-
-# Calling the main function
-main()
