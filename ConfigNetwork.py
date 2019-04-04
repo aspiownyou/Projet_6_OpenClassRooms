@@ -3,6 +3,8 @@ import sys
 import time
 import datetime
 
+import ScriptGeneral as G
+
 # Creating the configuration file
 repUser = "/tmp/ResultatScript.conf"
 
@@ -28,14 +30,14 @@ def main():
 
     # Processing the argument and launching the attached function
     if argument == 'E' or argument == 'e':
-        creationInterface(fichConf)
+        G.creationInterface(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
 
     elif argument == 'D' or argument == 'd':
-        creationDHCP(fichConf)
+        G.creationDHCP(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
     elif argument == 'V' or argument == 'v':
-        ajoutVLAN(fichConf)
+        G.ajoutVLAN(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
     else:
         print("Il faut un argument pour appeller le script :\n")
