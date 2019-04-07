@@ -32,6 +32,7 @@ def main():
     if argument == 'E' or argument == 'e':
         G.creationInterface(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
+        G.redemarrage()
 
     elif argument == 'D' or argument == 'd':
         G.creationDHCP(fichConf)
@@ -39,6 +40,8 @@ def main():
     elif argument == 'V' or argument == 'v':
         G.ajoutVLAN(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
+        G.redemarrage()
+
     else:
         print("Il faut un argument pour appeller le script :\n")
         print("\n        E ou e  creation d'interface(s) réseau")
