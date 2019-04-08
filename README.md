@@ -31,7 +31,7 @@ MODE D'EMPLOIS:
     Note : Il sera peut etre nécéssaire de relancer les services réseaux, voir redémarer le serveur (Fedora).
 
     Vous pourrez trouver toutes les modifications apporté par les différentes éxécution du script dans le
-    fichier /tmp/ResultatScript.conf
+     fichier /tmp/ResultatScript.conf
 
 LISTE DES ARGUMENTS:
 

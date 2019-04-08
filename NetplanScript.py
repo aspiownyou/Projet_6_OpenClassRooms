@@ -16,8 +16,8 @@ def vlan(vlan, fichier):
 
     # Editing with the data in the YAML file
     fichier.write("  vlans:\n")
-    fichier.write("    vlan" + str(vlan["num"]) + ":\n")
-    fichier.write("      id: " + str(vlan["num"]) + "\n")
+    fichier.write("    vlan" + str(vlan["device"]) + ":\n")
+    fichier.write("      id: " + str(vlan["device"]) + "\n")
     fichier.write("      link: " + vlan["interface"] + "\n")
     fichier.write("      adresses: " + vlan["adresse"] + "\n")
     
