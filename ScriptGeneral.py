@@ -18,7 +18,7 @@ import ScriptDHCP as sdhcp
 configE = yaml.safe_load(open("Config.yaml"))
 configD = yaml.safe_load(open("ConfigDHCP_pools.yaml"))
 configV = yaml.safe_load(open("ConfigVLAN.yaml"))
-lease = yaml.safe_load(open("ConfigDHCP_lease.yaml"))
+dhcpGlobal = yaml.safe_load(open("ConfigDHCP_global.yaml"))
 
 # Creating empty dictionaries for YAML data retrieval
 carte={}
@@ -26,8 +26,9 @@ dhcp={}
 vlan={}
 
 # definition of variables for the DHCP part
-max_lease = lease["Globale"]["lease_max"]
-default_lease = lease["Globale"]["lease"]
+max_lease = dhcpGlobal["Globale"]["lease_max"]
+default_lease = dhcpGlobal["Globale"]["lease"]
+iDHCPName = dhcpGlobal["Globale"]["interfaces"]
 
 
 # Function of creating network interfaces according to the contents of the Config.yaml file
@@ -123,6 +124,12 @@ def creationDHCP(fichConf):
             os.system("apt install -y isc-dhcp-server*")
         elif os.path.exists("/etc/zypp/"):
             os.system("zypper install -y dhcp-server*")
+
+        # 
+
+        iDHCP = open("/etc/default/isc/dhcp-server")
+        iDHCP.write("# Interface DHCP declaration")
+        iDHCP.write("INTERFACES=\"" + iDHCPName + "\" \n")
 
         # initializing the configuration file with the duration of the leases in the ConfigDHCP_lease.yaml file
         if os.path.exists("/etc/zypp/"):                                        # If OpenSuse

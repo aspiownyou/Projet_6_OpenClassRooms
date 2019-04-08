@@ -4,3 +4,4 @@
 Globale:
   lease: '600'          # Duration by default of leases in seconds
   lease_max: '7200'     # Maximum duration of leases in seconds
+  interfaces: 'enp0s9'  # DHCP interfaces
