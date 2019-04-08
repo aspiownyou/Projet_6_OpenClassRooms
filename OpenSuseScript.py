@@ -27,11 +27,11 @@ def carteE(carte):
 def vlan(vlan):
 
     # Creating the file path
-    chemin = "/etc/sysconfig/network/ifcfg-" + vlan["device"]
+    chemin = "/etc/sysconfig/network/ifcfg-" + vlan["interface"] + "." + vlan["num"]
 
     # Creating the file and editing with the data in the YAML file
     fichier = open(chemin, "w")
-    fichier.write("DEVICE=" + vlan["device"] + "\n")
+    fichier.write("DEVICE=" + vlan["interface"] + "." + vlan["num"] + "\n")
     fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
     fichier.write("ONBOOT=yes\n")
     fichier.write("IPADDR=" + vlan["adresse"] + "\n")
