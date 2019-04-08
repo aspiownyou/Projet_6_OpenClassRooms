@@ -37,6 +37,8 @@ def main():
     elif argument == 'D' or argument == 'd':
         G.creationDHCP(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
+        G.restartDHCP()
+        
     elif argument == 'V' or argument == 'v':
         G.ajoutVLAN(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)

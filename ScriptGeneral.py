@@ -56,17 +56,9 @@ def creationInterface(fichConf):
 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-    
-            # Application of changes
-           # os.system("netplan apply")
-          #  print("Redémarrage du service réseau...")
 
         # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-    
-            # Stopping network service
-          #  os.system("/etc/init.d/networking stop")
-          #  print("Arret du service réseau...")
 
             # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "w")
@@ -83,23 +75,8 @@ def creationInterface(fichConf):
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
-            # Starting network service
-           # os.system("/etc/init.d/networking start")
-           # print("Redémarrage du service réseau...")
-
         # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
-           # if os.path.exists("/etc/NetworkManager/"):   # Fedora
-                
-                # Stopping NetworkManager
-               # os.system("service NetworkManager stop")
-               # print("Arret du service réseau...")
-
-           # else:
-                
-                # Stopping network service
-              #  os.system("/etc/init.d/network stop")
-              #  print("Arret du service réseau...")
 
             # Interface configuration loop
             for card in configE:
@@ -109,24 +86,8 @@ def creationInterface(fichConf):
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
 
-         #   if os.path.exists("/etc/NetworkManager/"):
-
-                # Starting NetworkManager
-             #   os.system("service NetworkManager start")
-             #   print("Redémarrage du service réseau...")
-
-         #   else:
-
-                # Starting network service
-             #   os.system("/etc/init.d/network start")
-             #   print("Redémarrage du service réseau...")
-
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
-    
-            # Stopping network service
-         #   os.system("/etc/init.d/network stop")
-         #   print("Arret du service réseau...")
 
             # Interface configuration loop
             for card in configE:
@@ -135,10 +96,6 @@ def creationInterface(fichConf):
                 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("L'interface " + carte["name"] + " vient d'etre ajoutée avec l'adresse : " + carte["adresse"] + "\n")
-
-            # Starting network service
-         #   os.system("/etc/init.d/network start")
-         #   print("Redémarrage du service réseau...")
 
         # Linux distribution not supported
         else:
@@ -188,17 +145,6 @@ def creationDHCP(fichConf):
             print("Configuration du pool dhcp sur le réseau " + dhcp["subnet"])
             fichConf.write("Configuration du pool dhcp sur le réseau " + dhcp["subnet"] + "\n")
 
-        # Executing service restart commands and automatic execution at startup
-        if os.path.exists("/etc/NetworkManager"):
-            os.system("/etc/init.d/dhcpd restart")
-            os.system("systemctl enable dhcpd")
-        elif os.path.exists("/etc/network/"):
-            os.system("/etc/init.d/isc-dhcp-server restart")
-            os.system("systemctl enable dhcpd")
-        else:
-            os.system("/etc/init.d/dhcpd restart")
-            os.system("systemctl enable dhcpd")
-
     except Exception as e:
         print("Problème creation dhcp")
         print(e)
@@ -231,17 +177,9 @@ def ajoutVLAN(fichConf):
                 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
-    
-            # Application of changes
-          #  os.system("netplan apply")
-          #  print("Redémarrage du service réseau...")
 
         # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
-    
-            # Stopping network service
-           # os.system("/etc/init.d/networking stop")
-           # print("Arret du service réseau...")
 
             # Opening interfaces configuration file
             fichier = open("/etc/network/interfaces", "a")
@@ -259,23 +197,8 @@ def ajoutVLAN(fichConf):
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
-            # Starting network service
-           # os.system("/etc/init.d/networking start")
-          #  print("Redémarrage du service réseau...")
-
         # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
-            #if os.path.exists("/etc/NetworkManager/"):      # Fedora
-                
-                # Stopping NetworkManager
-             #   os.system("service NetworkManager stop")
-             #   print("Arret du service réseau...")
-
-            #else:
-                
-                # Stopping network service
-              #  os.system("/etc/init.d/network stop")
-              #  print("Arret du service réseau...")
 
             # VLAN configuration loop
             for vlan_inf in configV:
@@ -285,24 +208,8 @@ def ajoutVLAN(fichConf):
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
 
-           # if os.path.exists("/etc/NetworkManager/"):
-                
-                # Starting NetworkManager
-              #  os.system("service NetworkManager start")
-              #  print("Redémarrage du service réseau...")
-
-          #  else:
-                
-                # Starting network service
-               # os.system("/etc/init.d/network start")
-               # print("Redémarrage du service réseau...")
-
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
-    
-            # Stopping network service
-           # os.system("/etc/init.d/network stop")
-          # print("Arret du service réseau...")
 
             # VLAN configuration loop
             for vlan_inf in configV:
@@ -311,10 +218,6 @@ def ajoutVLAN(fichConf):
                 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
-
-            # Starting network service
-           # os.system("/etc/init.d/network start")
-            #print("Redémarrage du service réseau...")
 
         # Linux distribution not supported
         else:
@@ -328,21 +231,35 @@ def ajoutVLAN(fichConf):
     # If the script is executed correctly
     else:
         print("Création des VLANs OK!")
-        
+
+# Network services restart function        
 def redemarrage():
-    if os.path.exists("/etc/netplan/"):
+    if os.path.exists("/etc/netplan/"): # Ubuntu / Netplan
         os.system("netplan apply")
-    elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
+    elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"): # Debian
         os.system("/etc/init.d/networking restart")
     elif os.path.exists("/etc/sysconfig/network-scripts/"):
         if os.path.exists("/etc/NetworkManager/"):      # Fedora
                 
-            # Stopping NetworkManager
+            # Restarting NetworkManager
             os.system("service NetworkManager restart")
 
-        else:
+        else:    # CentOS
                 
-            # Stopping network service
+            # Restarting network service 
             os.system("/etc/init.d/network restart")
-    elif os.path.exists("/etc/sysconfig/network/"):
+    elif os.path.exists("/etc/sysconfig/network/"): # OpenSuse
         os.system("/etc/init.d/network restart")
+
+def restartDHCP():
+
+        # Executing service restart commands and automatic execution at startup
+        if os.path.exists("/etc/NetworkManager"):
+            os.system("/etc/init.d/dhcpd restart")
+            os.system("systemctl enable dhcpd")
+        elif os.path.exists("/etc/network/"):
+            os.system("/etc/init.d/isc-dhcp-server restart")
+            os.system("systemctl enable dhcpd")
+        else:
+            os.system("/etc/init.d/dhcpd restart")
+            os.system("systemctl enable dhcpd")
