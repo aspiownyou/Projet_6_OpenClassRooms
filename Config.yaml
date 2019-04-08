@@ -15,7 +15,7 @@
 
 # Network adaptater #1
 Carte2:
-  adresse: '192.168.0.2'
+  adresse: '192.168.1.2'
   reseau: '192.168.0.0'
   broadcast: '192.168.0.255'
   netmask: '255.255.255.0'

@@ -144,6 +144,7 @@ def creationDHCP(fichConf):
             fichierDHCP.write("default-lease-time " + default_lease + ";" + "\n")
             fichierDHCP.write("max-lease-time " + max_lease + ";" + "\n \n \n")
             fichierDHCP.write("# config des étendues DHCP\n")
+            print("debian debian debian")
 
         # DHCP address pool fill loop
         for dhcp_inf in configD:
