@@ -5,6 +5,7 @@ VLAN1:
   bootproto: 'static'
   adresse: '192.168.5.2'
   netmask: '255.255.255.0'
+  cidr: '24'                   # cidr notation of netmask
   network: '192.168.5.0'
   gateway: ''                  # Optional
   interface: 'enp0s3'          # Physical interface

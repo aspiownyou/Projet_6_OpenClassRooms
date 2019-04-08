@@ -18,7 +18,7 @@ def vlan(vlan, fichier):
     fichier.write("    vlan" + str(vlan["num"]) + ":\n")
     fichier.write("      id: " + str(vlan["num"]) + "\n")
     fichier.write("      link: " + vlan["interface"] + "\n")
-    fichier.write("      adresses: [ " + vlan["adresse"] + " ]\n")
+    fichier.write("      addresses: [ " + vlan["adresse"] + "/" + vlan["cidr"] + " ]\n")
     
     # Optional parameter
     if vlan["gateway"] != '':
