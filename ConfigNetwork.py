@@ -35,6 +35,7 @@ def main():
         G.redemarrage()
 
     elif argument == 'D' or argument == 'd':
+        G.installDHCP()
         G.creationDHCP(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
         G.restartDHCP()

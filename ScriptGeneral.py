@@ -111,25 +111,27 @@ def creationInterface(fichConf):
     else:
         print("Création des interfaces OK!")
 
+def installDHCP():
+
+    # Installing the ISC-DHCP-server package
+    if os.path.exists("/etc/yum/"):
+        os.system("yum install -y dhcp-server*")
+    elif os.path.exists("/etc/apt/"):
+        os.system("apt install -y isc-dhcp-server*")
+    elif os.path.exists("/etc/zypp/"):
+        os.system("zypper install -y dhcp-server*")
+
+
 
 # ISC-DHCP Server installation and configuration function
 def creationDHCP(fichConf):
 
     try:
-
-        # Installing the ISC-DHCP-server package
-        if os.path.exists("/etc/yum/"):
-            os.system("yum install -y dhcp-server*")
-        elif os.path.exists("/etc/apt/"):
-            os.system("apt install -y isc-dhcp-server*")
-        elif os.path.exists("/etc/zypp/"):
-            os.system("zypper install -y dhcp-server*")
-
         # 
 
-        iDHCP = open("/etc/default/isc/dhcp-server")
-        iDHCP.write("# Interface DHCP declaration")
-        iDHCP.write("INTERFACES=\"" + iDHCPName + "\" \n")
+        #iDHCP = open("/etc/default/isc/dhcp-server")
+        #iDHCP.write("# Interface DHCP declaration")
+        #iDHCP.write("INTERFACES=\"" + iDHCPName + "\" \n")
 
         # initializing the configuration file with the duration of the leases in the ConfigDHCP_lease.yaml file
         if os.path.exists("/etc/zypp/"):                                        # If OpenSuse
