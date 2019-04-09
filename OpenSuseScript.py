@@ -31,12 +31,13 @@ def vlan(vlan):
 
     # Creating the file and editing with the data in the YAML file
     fichier = open(chemin, "w")
-    fichier.write("DEVICE=" + str(vlan["interface"]) + "." + str(vlan["num"]) + "\n")
+    fichier.write("ETHERDEVICE=" + str(vlan["interface"]) + "\n")
     fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
     fichier.write("ONBOOT=yes\n")
     fichier.write("IPADDR=" + vlan["adresse"] + "\n")
     fichier.write("NETMASK=" + vlan["netmask"] + "\n")
     fichier.write("NETWORK=" + vlan["network"] + "\n")
+    fichier.write("VLAN_ID=" + str(vlan["num"]) + "\n")
     fichier.write("VLAN=yes")
 
     # Viewing the created file
