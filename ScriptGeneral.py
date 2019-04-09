@@ -255,7 +255,7 @@ def redemarrage():
         if os.path.exists("/etc/NetworkManager/"):      # Fedora
                 
             # Restarting NetworkManager
-            os.system("service NetworkManager restart")
+            os.system("systemctl restart NetworkManager")
 
         else:    # CentOS
                 
@@ -279,6 +279,6 @@ def restartDHCP():
 
 def startWicked():
     os.system("systemctl disable NetworkManager")
-    os.system("service NetworkManager stop")
+    os.system("systemctl stop NetworkManager")
     os.system("systemctl enable wicked.service")
     os.system("service wicked restart")
