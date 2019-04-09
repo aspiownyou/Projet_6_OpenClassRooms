@@ -186,7 +186,7 @@ def ajoutVLAN(fichConf):
                 print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
                 
                 # Saving configurations to a ResultatScript.conf file
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+                fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
 
         # Debian-based
         elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"):
@@ -205,7 +205,7 @@ def ajoutVLAN(fichConf):
                 print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
                 
                 # Saving configurations to a ResultatScript.conf file
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+                fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
 
         # Red-Hat-based
         elif os.path.exists("/etc/sysconfig/network-scripts/"):
@@ -216,7 +216,7 @@ def ajoutVLAN(fichConf):
                 R.vlan(vlan)        # Calling the vlans configuration function in the RedHatScript.py script
                 
                 # Saving configurations to a ResultatScript.conf file
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+                fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
 
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
@@ -227,7 +227,7 @@ def ajoutVLAN(fichConf):
                 O.vlan(vlan)        # Calling the vlans configuration function in the OpenSuseScript.py script
                 
                 # Saving configurations to a ResultatScript.conf file
-                fichConf.write("Création du VLAN " + vlan["device"] + " " + vlan["adresse"] + "\n")
+                fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
 
         # Linux distribution not supported
         else:
