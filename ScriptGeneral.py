@@ -221,6 +221,9 @@ def ajoutVLAN(fichConf):
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
 
+            # Starting wicked network manager
+            startWicked()
+
             # VLAN configuration loop
             for vlan_inf in configV:
                 vlan = configV[vlan_inf]
@@ -273,3 +276,8 @@ def restartDHCP():
         else:
             os.system("/etc/init.d/dhcpd restart")
             os.system("systemctl enable dhcpd")
+
+def startWicked():
+    os.system("systemctl disable NetworkManager")
+    os.system("systemctl enable wicked.service")
+    os.system("service wicked restart")

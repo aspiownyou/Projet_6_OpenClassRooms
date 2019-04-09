@@ -15,7 +15,7 @@ def carteE(carte):
     fichier.write("NETMASK='" + carte["netmask"] + "'\n")
     fichier.write("NAME='" + carte["name"] + "'\n")
     fichier.write("NETWORK='" + carte["reseau"] + "'\n")
-    fichier.write("BROADCAST='" + carte["broadcast"] "'")
+    fichier.write("BROADCAST='" + carte["broadcast"] + "'")
 
     # Optional parameter
     if carte["gateway"] != '':
