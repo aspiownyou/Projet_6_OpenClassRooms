@@ -265,6 +265,7 @@ def redemarrage():
             # Restarting network service 
             os.system("service network restart")
     elif os.path.exists("/etc/sysconfig/network/"): # OpenSuse
+        os.system("systemctl stop NetworkManager")
         os.system("service wicked restart")
 
 def restartDHCP():
@@ -282,5 +283,4 @@ def restartDHCP():
 
 def startWicked():
     os.system("systemctl disable NetworkManager")
-    os.system("systemctl stop NetworkManager")
     os.system("systemctl enable wicked.service")
