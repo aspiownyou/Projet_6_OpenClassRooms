@@ -4,6 +4,8 @@ PREREQUIS:
     - bibliothèque pyyaml installée (python -m pip isntall pyyaml)
     - distribution Linux basé sur Red Hat, Debian, Ubuntu ou OpenSuse
 
+    Note : testé sur Opensuse Leap 15, Ubuntu 18.10, Debian 9, Fedora 29
+
 MODE D'EMPLOIS:
 
     lancer ConfigNetwork.py avec les droits root. Le lancement se fait avec une commande de type:
