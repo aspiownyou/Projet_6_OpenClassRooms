@@ -250,7 +250,7 @@ def redemarrage():
     if os.path.exists("/etc/netplan/"): # Ubuntu / Netplan
         os.system("netplan apply")
     elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"): # Debian
-        os.system("/etc/init.d/networking restart")
+        os.system("service networking restart")
     elif os.path.exists("/etc/sysconfig/network-scripts/"):
         if os.path.exists("/etc/NetworkManager/"):      # Fedora
                 
@@ -260,9 +260,9 @@ def redemarrage():
         else:    # CentOS
                 
             # Restarting network service 
-            os.system("/etc/init.d/network restart")
+            os.system("service network restart")
     elif os.path.exists("/etc/sysconfig/network/"): # OpenSuse
-        os.system("/etc/init.d/network restart")
+        os.system("service wicked restart")
 
 def restartDHCP():
 
@@ -279,5 +279,6 @@ def restartDHCP():
 
 def startWicked():
     os.system("systemctl disable NetworkManager")
+    os.system("service NetworkManager stop")
     os.system("systemctl enable wicked.service")
     os.system("service wicked restart")
