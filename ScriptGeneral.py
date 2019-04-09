@@ -90,6 +90,9 @@ def creationInterface(fichConf):
         # OpenSuse
         elif os.path.exists("/etc/sysconfig/network/"):
 
+            # Starting wicked network manager
+            startWicked()
+
             # Interface configuration loop
             for card in configE:
                 carte = configE[card]
@@ -281,4 +284,3 @@ def startWicked():
     os.system("systemctl disable NetworkManager")
     os.system("systemctl stop NetworkManager")
     os.system("systemctl enable wicked.service")
-    os.system("service wicked restart")
