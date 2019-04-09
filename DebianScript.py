@@ -11,7 +11,7 @@ def carteE(carte, fichier):
     if carte["primaire"] == 'y':
         fichier.write("allow-hotplug " + carte["name"] + "\n")
 
-    fichier.write("iface " + carte["name"] + " inet static\n")
+    fichier.write("iface " + carte["name"] + " inet " + cart["mode"] +" \n")
     fichier.write("  address " + carte["adresse"] + "\n")
     fichier.write("  netmask " + carte["netmask"] + "\n")
 
