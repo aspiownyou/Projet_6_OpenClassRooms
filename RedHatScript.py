@@ -36,9 +36,12 @@ def vlan(vlan):
         fichier.write("DEVICE=" + str(vlan["interface"]) + "." + str(vlan["num"]) + "\n")
         fichier.write("BOOTPROTO=" + vlan["bootproto"] + "\n")
         fichier.write("ONBOOT=yes\n")
-        fichier.write("IPADDR=" + vlan["adresse"] + "\n")
-        fichier.write("NETMASK=" + vlan["netmask"] + "\n")
-        fichier.write("NETWORK=" + vlan["network"] + "\n")
+        
+        if vlan["bootproto"] == "static":
+                fichier.write("IPADDR=" + vlan["adresse"] + "\n")
+                fichier.write("NETMASK=" + vlan["netmask"] + "\n")
+                fichier.write("NETWORK=" + vlan["network"] + "\n")
+                        
         fichier.write("VLAN=yes")
         
         # Viewing the created file
