@@ -186,7 +186,7 @@ def ajoutVLAN(fichConf):
                 N.vlan(vlan, fichier)       # Calling the vlans configuration function in the NetplanScript.py script
                 
                 # Display of the configured vlan
-                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                print("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"])
                 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
@@ -205,7 +205,7 @@ def ajoutVLAN(fichConf):
                 D.vlan(vlan, fichier)       # Calling the vlans configuration function in the DebianScript.py script
                 
                 # Display of the configured VLAN
-                print("Création du VLAN " + vlan["device"] + " " + vlan["adresse"])
+                print("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"])
                 
                 # Saving configurations to a ResultatScript.conf file
                 fichConf.write("Création du VLAN " + str(vlan["interface"]) + "." + str(vlan["num"]) + " " + vlan["adresse"] + "\n")
