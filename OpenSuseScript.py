@@ -9,17 +9,17 @@ def carteE(carte):
     # Creating the file and editing with the data in the YAML file
     fichier = open(chemin, "w")
     fichier.write("TYPE='" + carte["type"] + "'\n")
-    fichier.write("BOOTPROTO='" + carte["mode"] + "'\n")
     fichier.write("STARTMODE='auto' \n")
-    fichier.write("IPADDR='" + carte["adresse"] + "'\n")
-    fichier.write("NETMASK='" + carte["netmask"] + "'\n")
     fichier.write("NAME='" + carte["name"] + "'\n")
-    fichier.write("NETWORK='" + carte["reseau"] + "'\n")
-    fichier.write("BROADCAST='" + carte["broadcast"] + "'")
-
-    # Optional parameter
-    if carte["gateway"] != '':
-        fichier.write("GATEWAY=" + carte["gateway"])
+    fichier.write("BOOTPROTO='" + carte["mode"] + "'\n")
+    if carte["mode"] == "static":
+        fichier.write("IPADDR='" + carte["adresse"] + "'\n")
+        fichier.write("NETMASK='" + carte["netmask"] + "'\n")
+        fichier.write("NETWORK='" + carte["reseau"] + "'\n")
+        fichier.write("BROADCAST='" + carte["broadcast"] + "'")
+        # Optional parameter
+        if carte["gateway"] != '':
+            fichier.write("GATEWAY=" + carte["gateway"])
     
     # Viewing the created file
     print("le fichier "+chemin+' à été créé')

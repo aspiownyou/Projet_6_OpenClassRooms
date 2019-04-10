@@ -11,14 +11,15 @@ def carteE(carte, fichier):
     if carte["primaire"] == 'y':
         fichier.write("allow-hotplug " + carte["name"] + "\n")
 
-    fichier.write("iface " + carte["name"] + " inet " + cart["mode"] +" \n")
-    fichier.write("  address " + carte["adresse"] + "\n")
-    fichier.write("  netmask " + carte["netmask"] + "\n")
+    fichier.write("iface " + carte["name"] + " inet " + carte["mode"] +" \n")
+    if carte["mode"] == "static":
+        fichier.write("  address " + carte["adresse"] + "\n")
+        fichier.write("  netmask " + carte["netmask"] + "\n")
+        fichier.write("  broadcast " + carte["broadcast"] + "\n")
 
-    # Optional parameter
-    if carte["gateway"] != '':
-        fichier.write("  gateway " + carte["gateway"] + "\n")
-    # fichier.write("  broadcast " + carte["broadcast"] + "\n")
+        # Optional parameter
+        if carte["gateway"] != '':
+            fichier.write("  gateway " + carte["gateway"] + "\n")    
 
 # VLANS interface file creation function
 def vlan(vlan, fichier):

@@ -3,13 +3,16 @@
 # Network interface file creation function
 def carteE(carte, fichier):
 
-    # Editing with the data in the YAML file
-    fichier.write("    " + carte["name"] + ":\n")
-    fichier.write("      addresses: [ " + carte["adresse"] + "/" + carte["cidr"] + " ]\n")
-    
-    # Optional parameter
-    if carte["gateway"] != '' :
-        fichier.write("      gateway4: " + carte["gateway"] + "\n")
+        # Editing with the data in the YAML file
+        fichier.write("    " + carte["name"] + ":\n")
+        if carte["mode"] == "static":
+                fichier.write("      addresses: [ " + carte["adresse"] + "/" + carte["cidr"] + " ]\n")
+                # Optional parameter
+                if carte["gateway"] != '' :
+                        fichier.write("      gateway4: " + carte["gateway"] + "\n")
+        else:
+                fichier.write("      dhcp4: true \n")
+        
 
 # VLANS interface file creation function
 def vlan(vlan, fichier):
