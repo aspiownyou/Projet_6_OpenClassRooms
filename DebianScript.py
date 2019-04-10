@@ -25,7 +25,7 @@ def carteE(carte, fichier):
 def vlan(vlan, fichier):
 
     # Editing with the data in the YAML file
-    fichier.write("\n\n# vlan " + str(vlan["name"]) + "  " + str(vlan["adresse"]) + "\n")
+    fichier.write("\n\n# vlan vlan" + str(vlan["num"]) + "  " + str(vlan["adresse"]) + "\n")
     fichier.write("auto " + str(vlan["interface"]) + "." + str(vlan["num"]) + "\n")
     fichier.write("iface " + vlan["interface"] + "." + vlan["num"] + " inet static\n")
     fichier.write("  address " + vlan["adresse"] + "\n")
