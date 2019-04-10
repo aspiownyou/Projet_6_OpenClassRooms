@@ -33,9 +33,10 @@ def main():
 
     # Processing the argument and launching the attached function
     if argument == 'E' or argument == 'e':
+        G.stopNetwork()
         G.creationInterface(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
-        G.redemarrage()
+        G.startNetwork()
 
     elif argument == 'D' or argument == 'd':
         G.installDHCP()
@@ -44,9 +45,10 @@ def main():
         G.restartDHCP()
         
     elif argument == 'V' or argument == 'v':
+        G.stopNetwork()
         G.ajoutVLAN(fichConf)
         print("Vous pourrez trouver les modifications effectué dans le fichier : " + repUser)
-        G.redemarrage()
+        G.startNetwork()
 
     else:
         print("Il faut un argument pour appeller le script :\n")

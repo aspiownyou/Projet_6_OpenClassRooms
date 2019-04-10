@@ -248,6 +248,42 @@ def ajoutVLAN(fichConf):
     else:
         print("Création des VLANs OK!")
 
+def startNetwork():
+    if os.path.exists("/etc/netplan/"): # Ubuntu / Netplan
+        os.system("netplan apply")
+    elif os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"): # Debian
+        os.system("service networking start")
+    elif os.path.exists("/etc/sysconfig/network-scripts/"):
+        if os.path.exists("/etc/NetworkManager/"):      # Fedora
+                
+            # Restarting NetworkManager
+            os.system("systemctl start NetworkManager")
+
+        else:    # CentOS
+                
+            # Restarting network service 
+            os.system("service network start")
+    elif os.path.exists("/etc/sysconfig/network/"): # OpenSuse
+        os.system("systemctl stop NetworkManager")
+        os.system("service wicked start")
+
+def stopNetwork():
+    if os.path.exists("/etc/network/") and not os.path.exists("/etc/netplan/"): # Debian
+        os.system("service networking stop")
+    elif os.path.exists("/etc/sysconfig/network-scripts/"):
+        if os.path.exists("/etc/NetworkManager/"):      # Fedora
+                
+            # Restarting NetworkManager
+            os.system("systemctl stop NetworkManager")
+
+        else:    # CentOS
+                
+            # Restarting network service 
+            os.system("service network stop")
+    elif os.path.exists("/etc/sysconfig/network/"): # OpenSuse
+        os.system("systemctl stop NetworkManager")
+        os.system("service wicked stop")
+
 # Network services restart function        
 def redemarrage():
     if os.path.exists("/etc/netplan/"): # Ubuntu / Netplan
