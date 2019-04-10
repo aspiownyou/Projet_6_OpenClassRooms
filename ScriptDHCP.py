@@ -10,7 +10,7 @@ def configDHCP(dhcp, fichier):
     
     # Optional addition based on their presence in the YAML file (DNS server, domain, NTP server)
     if dhcp["dns"] != '':
-        fichier.write("  option domain-name-server " + dhcp["dns"] + ";\n")
+        fichier.write("  option domain-name-servers " + dhcp["dns"] + ";\n")
     elif dhcp["domain"] != '':
         fichier.write("  option domain-name " + dhcp["domain"] + ";\n")
     elif dhcp["ntp"] != '':
