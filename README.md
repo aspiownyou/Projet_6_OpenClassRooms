@@ -23,7 +23,7 @@ MODE D'EMPLOIS:
 
     Pour l'installation et la configuration d'un serveur ISC-DHCP-Server, vous aurez besoin d'une accès internet. Les
     informations nécéssaire au déploiement du dhcp seront stockées dans les fichiers ConfigDHCP_lease.yaml et 
-    ConfigDHCP_pools.yaml . Les argments D ou d serviront à lancer cette partie.
+    ConfigDHCP_pools.yaml . Dans le cas où votre serveur DHCP à plusieurs interfaces, il faudra éditer le fichier /etc/default/isc-dhcp-server pour les préciser. Les argments D ou d serviront à lancer cette partie.
 
     Pour la configuration de VLAN, les interfaces doivent deja être configurées et le script lancé avec les arguments 
     V ou v. Les informations servant à leurs paramétrage seront stocké dans le fichier ConfigVLAN.yaml .
